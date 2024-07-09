@@ -7,8 +7,10 @@ import 'package:vows/screens/foodscreen.dart';
 
 import 'package:vows/screens/login.dart';
 import 'package:vows/screens/shoppingcart.dart';
+
+import 'package:vows/screens/test.dart';
 import 'package:vows/screens/venuesscreen.dart';
-import 'package:vows/widgets/buttombar.dart';
+
 
 import 'package:vows/widgets/card.dart';
 
@@ -204,13 +206,6 @@ class Home extends StatelessWidget {
             },
           ),
         ),
-        Buttombar(
-            title1: "الاعدادات",
-            title2: "الموردين",
-            title3: "الصفحه الرئيسيه",
-            imageUrl1: "settingsicon.png",
-            imageUrl2: "vendors.png",
-            imageUrl3: "homeicon.png")
       ]),
     );
   }
@@ -264,7 +259,9 @@ class CategoryBox extends StatelessWidget {
             ],
           ),
         ),
+        
       ),
+      BottomNavigationBar: const MyNavigationBar(),
     );
   }
 }

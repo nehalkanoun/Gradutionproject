@@ -41,8 +41,7 @@ class _ProductCard extends State<ProductCard> {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxWidth: 140,
-        maxHeight: 130,
+        maxWidth: 100,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -122,7 +121,7 @@ class _ProductCard extends State<ProductCard> {
                         child: GestureDetector(
                           onTap: _increaseQuantity,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 20),
+                            padding: const EdgeInsets.only(right: 5),
                             child: Container(
                               width: 20,
                               height: 30,

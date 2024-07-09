@@ -12,6 +12,7 @@ import 'package:vows/screens/login.dart';
 import 'package:vows/screens/sellerhome.dart';
 import 'package:vows/screens/settings.dart';
 import 'package:vows/screens/shoppingcart.dart';
+import 'package:vows/screens/test.dart';
 import 'package:vows/screens/vendorsscreen.dart';
 import 'package:vows/screens/venuesdetailedscreen.dart';
 
@@ -68,6 +69,22 @@ class SplashScreen extends StatelessWidget {
                 },
                 child: const Text(
                   "تسجيل دخول",
+                  style: TextStyle(color: Colors.white),
+                )),
+            ElevatedButton(
+                style: ButtonStyle(
+                    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromARGB(255, 101, 143, 193))),
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const MyNavigationBar()),
+                      (route) => false);
+                },
+                child: const Text(
+                  " test",
                   style: TextStyle(color: Colors.white),
                 ))
           ],
