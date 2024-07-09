@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:vows/screens/home.dart';
+import 'package:vows/screens/settings.dart';
+import 'package:vows/screens/vendorsscreen.dart';
 
-class MyNavigationBar extends StatefulWidget {
-  const MyNavigationBar({Key? key});
+class Buttombarcus extends StatelessWidget {
+  const Buttombarcus({super.key});
 
   @override
-  _MyNavigationBarState createState() => _MyNavigationBarState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Bottomnavigationbar(),
+    );
+  }
 }
 
-class _MyNavigationBarState extends State<MyNavigationBar> {
+class Bottomnavigationbar extends StatefulWidget {
+  const Bottomnavigationbar({super.key});
+
+  @override
+  State<Bottomnavigationbar> createState() => _BottomnavigationbarState();
+}
+
+class _BottomnavigationbarState extends State<Bottomnavigationbar> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[Home()];
+  static final List<Widget> _widgetOptions = <Widget>[
+    const Center(
+      child: Home(),
+    ),
+    const Center(
+      child: Vendorsscreen(),
+    ),
+    const Center(
+      child: Settings(),
+    ),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -21,11 +45,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 101, 143, 193),
+          backgroundColor: const Color.fromARGB(255, 101, 143, 193),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: ImageIcon(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vows/screens/fooddetailedscreen.dart';
+import 'package:vows/screens/arabiankitchenscreen.dart';
+import 'package:vows/screens/jumairadetailedscreen.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/maincard.dart';
@@ -47,20 +48,19 @@ class Food extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
               ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'jumeira.png',
               title: 'جميره للتموين',
               location: 'الهواري',
               cardText: 'This is the text for the first card.',
@@ -68,17 +68,16 @@ class Food extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => const Fooddetailedscreen(),
+                    builder: (context) => const Jumairadetailedscreen(),
                   ),
                 );
               },
-              imageUrl: 'jumeira.png',
+              imageUrl: 'assets/jumeira.png',
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'arabiankitchen.jpg',
               title: 'المطبخ العربي',
               location: 'الرحبه',
               cardText: 'This is the text for the second card.',
@@ -86,11 +85,11 @@ class Food extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => const Fooddetailedscreen(),
+                    builder: (context) => const Arabiankitchenscreen(),
                   ),
                 );
               },
-              imageUrl: 'arabiankitchen.jpg',
+              imageUrl: 'assets/arabiankitchen.jpg',
             ),
           ),
         ],

@@ -58,18 +58,19 @@ class _ProductCard extends State<ProductCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Container(
+          Container(
+              width: 160,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.imageUrl),
+                  image: AssetImage(widget.imageUrl),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(20.0),
               ),
-            ),
-          ),
-          const Spacer(),
+              child: Container(
+                height: 150,
+              )),
+          // const Spacer(),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -97,7 +98,7 @@ class _ProductCard extends State<ProductCard> {
               ),
               Text(widget.price, style: TextStyle(fontSize: 10)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
@@ -115,13 +116,13 @@ class _ProductCard extends State<ProductCard> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 5),
                     child: Container(
                       child: Center(
                         child: GestureDetector(
                           onTap: _increaseQuantity,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
+                            padding: const EdgeInsets.only(left: 5),
                             child: Container(
                               width: 20,
                               height: 30,
@@ -133,7 +134,7 @@ class _ProductCard extends State<ProductCard> {
                                 child: Icon(
                                   Icons.add,
                                   color: Colors.black,
-                                  size: 10,
+                                  size: 20,
                                 ),
                               ),
                             ),
@@ -143,11 +144,14 @@ class _ProductCard extends State<ProductCard> {
                     ),
                   ),
                   SizedBox(width: 2.0),
-                  Text(
-                    '$quantity',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: Text(
+                      '$quantity',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(width: 2.0),
@@ -164,11 +168,11 @@ class _ProductCard extends State<ProductCard> {
                         child: Icon(
                           Icons.remove,
                           color: Colors.black,
-                          size: 10,
+                          size: 20,
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ]),

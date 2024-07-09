@@ -66,7 +66,6 @@ class cards extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'alfakhama.jpg',
               title: 'الفخامه الملكية',
               location: 'بلعون',
               cardText: 'This is the text for the first card.',
@@ -78,7 +77,7 @@ class cards extends StatelessWidget {
                   ),
                 );
               },
-              imageUrl: 'alfakhama.jpg',
+              imageUrl: 'assets/alfakhama.jpg',
             ),
           ),
         ],

@@ -59,7 +59,7 @@ class _ShoppingcartcardState extends State<Shoppingcartcard> {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(widget.imageUrl),
+                image: AssetImage(widget.imageUrl),
                 fit: BoxFit.fill,
               ),
               borderRadius: BorderRadius.circular(20.0),
@@ -69,7 +69,7 @@ class _ShoppingcartcardState extends State<Shoppingcartcard> {
         const Spacer(),
         Expanded(
             child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

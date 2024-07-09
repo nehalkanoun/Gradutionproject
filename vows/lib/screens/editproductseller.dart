@@ -51,7 +51,7 @@ class _EditproductState extends State<Editproduct> {
               case 0:
                 title = 'كافي فيقو';
                 subtitle = 'وايت موكا';
-                price = '8د.ل';
+                price = '8';
                 imageUrl = 'assets/whitemoka.jpg';
                 break;
 
@@ -74,8 +74,7 @@ class _EditproductState extends State<Editproduct> {
                 onEditPressed: (newTitle, newSubtitle, newPrice) {
                   setState(() {
                     _isEditing = !_isEditing;
-                    // Here, you can handle the updates to the product information
-                    // and update the state accordingly
+
                     title = newTitle;
                     subtitle = newSubtitle;
                     price = newPrice;

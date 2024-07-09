@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:vows/screens/forgetpassword.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/splashscreen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,8 +15,45 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isPasswordVisible = false;
+  final usernamecontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+
+  Future<void> _loginUser(
+      BuildContext context, String username, String password) async {
+    final url = Uri.parse('http://127.0.0.1:8000/api/auth/logincustomer/');
+    try {
+      final body = {
+        "username": usernamecontroller.text,
+        "password": passwordcontroller.text,
+      };
+
+      final response = await http.post(url,
+          body: jsonEncode(body),
+          headers: {'Content-Type': 'application/json'});
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        print(responseData);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+      } else {
+        print('Login failed. Status code: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
+  void dispose() {
+    usernamecontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -26,7 +65,8 @@ class _LoginState extends State<Login> {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                   context,
-                  CupertinoPageRoute(builder: (context) => const SplashScreen()),
+                  CupertinoPageRoute(
+                      builder: (context) => const SplashScreen()),
                   (route) => false);
             },
           ),
@@ -50,31 +90,32 @@ class _LoginState extends State<Login> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 90),
                 child: Text(
-                  "البريد الالكتروني:",
+                  " اسم المستخدم:",
                 ),
               ),
               const SizedBox(
                 height: 15,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 90),
                 child: TextField(
+                  controller: usernamecontroller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                   textAlign: TextAlign.left,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.name,
                   cursorColor: Colors.black,
                 ),
               ),
               MyPasswordField(
-                isPasswordVisible: isPasswordVisible,
-                onTap: () {
-                  setState(() {
-                    isPasswordVisible = !isPasswordVisible;
-                  });
-                },
-              ),
+                  isPasswordVisible: isPasswordVisible,
+                  onTap: () {
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
+                  passwordcontroller: passwordcontroller),
               const SizedBox(
                 height: 15,
               ),
@@ -89,10 +130,8 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(builder: (context) => const Home()),
-                        (route) => false);
+                    _loginUser(context, usernamecontroller.text,
+                        passwordcontroller.text);
                   },
                   child: const Text(
                     " تسجيل دخول",
@@ -137,11 +176,13 @@ class _LoginState extends State<Login> {
 class MyPasswordField extends StatelessWidget {
   final bool isPasswordVisible;
   final Function onTap;
+  final TextEditingController passwordcontroller;
 
   const MyPasswordField({
     Key? key,
     required this.isPasswordVisible,
     required this.onTap,
+    required this.passwordcontroller,
   }) : super(key: key);
 
   @override
@@ -164,6 +205,7 @@ class MyPasswordField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 90),
           child: TextField(
+            controller: passwordcontroller,
             obscureText: !isPasswordVisible,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
@@ -177,7 +219,7 @@ class MyPasswordField extends StatelessWidget {
               ),
             ),
             textAlign: TextAlign.left,
-            cursorColor: Colors.black, // Set the cursor color to black
+            cursorColor: Colors.black,
           ),
         ),
         const SizedBox(

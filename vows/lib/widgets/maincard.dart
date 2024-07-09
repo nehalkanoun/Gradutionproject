@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Maincards extends StatelessWidget {
-  final String imageAsset;
   final String title;
   final String location;
   final String cardText;
@@ -10,7 +9,6 @@ class Maincards extends StatelessWidget {
   final VoidCallback onPressed;
 
   Maincards({
-    required this.imageAsset,
     required this.title,
     required this.location,
     required this.cardText,
@@ -26,7 +24,7 @@ class Maincards extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 185,
                 maxHeight: 130,
               ),
@@ -45,18 +43,18 @@ class Maincards extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(imageAsset),
-                          fit: BoxFit.fill,
-                        ),
-                        borderRadius: BorderRadius.circular(20.0),
+                  Container(
+                    width: 160,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(imageUrl),
+                        fit: BoxFit.fill,
                       ),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
-                  const Spacer(),
+
+                 
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -65,12 +63,12 @@ class Maincards extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5.0),
+                     
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Row(
@@ -78,9 +76,9 @@ class Maincards extends StatelessWidget {
                               children: [
                                 Text(
                                   location,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
-                                IconButton(
+                                const IconButton(
                                   onPressed: null,
                                   icon: Icon(
                                     Icons.location_pin,
@@ -90,17 +88,17 @@ class Maincards extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Spacer(),
+                    
                           Container(
                             height: 25,
                             child: ElevatedButton(
-                              style: ButtonStyle(
+                              style: const ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
                                   Color.fromARGB(255, 101, 143, 193),
                                 ),
                               ),
                               onPressed: onPressed,
-                              child: Text(
+                              child: const Text(
                                 '...المزيد',
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -115,7 +113,7 @@ class Maincards extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
       ]),
     );
   }

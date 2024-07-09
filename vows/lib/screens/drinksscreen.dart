@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vows/screens/drinksdetailedcsreen.dart';
+import 'package:vows/screens/daniascreen.dart';
+import 'package:vows/screens/vigoscreen.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/maincard.dart';
@@ -60,7 +61,6 @@ class drinks extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'vigo.png',
               title: 'فيقو كافي ',
               location: 'الوكالات',
               cardText: 'This is the text for the first card.',
@@ -68,17 +68,16 @@ class drinks extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => const drinksdetailedscreens(),
+                    builder: (context) => const Vigoscreen(),
                   ),
                 );
               },
-              imageUrl: 'vigo.png',
+              imageUrl: 'assets/vigo.png',
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'dania.jpg',
               title: ' دانية ',
               location: 'فينيسيا',
               cardText: 'This is the text for the second card.',
@@ -86,11 +85,11 @@ class drinks extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => const drinksdetailedscreens(),
+                    builder: (context) => const Daniascreen(),
                   ),
                 );
               },
-              imageUrl: 'dania.jpg',
+              imageUrl: 'assets/dania.jpg',
             ),
           ),
         ],

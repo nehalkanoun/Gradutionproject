@@ -4,8 +4,14 @@ import 'package:vows/screens/foodscreen.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/card.dart';
 
-class Fooddetailedscreen extends StatelessWidget {
-  const Fooddetailedscreen({super.key});
+class Arabiankitchenscreen extends StatefulWidget {
+  const Arabiankitchenscreen({super.key});
+
+  @override
+  State<Arabiankitchenscreen> createState() => _ArabiankitchenscreenState();
+}
+
+class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +51,7 @@ class Fooddetailedscreen extends StatelessWidget {
         ),
         body: Expanded(
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: 3,
             itemBuilder: (context, index) {
               String title;
               String subtitle;
@@ -54,35 +60,24 @@ class Fooddetailedscreen extends StatelessWidget {
 
               switch (index) {
                 case 0:
-                  title = ' جميره للتموين';
-                  subtitle = 'مقبلات ';
+                  title = ' المطبخ العربي ';
+                  subtitle = 'مكرونة باللحم بالمكسرات';
                   price = '6د.ل';
-                  imageUrl = 'assets/jumaira(appe).jpg';
+                  imageUrl = 'assets/arabiankitchenpasta.jpg';
                   break;
                 case 1:
-                  title = ' جميره للتموين';
+                  title = ' المطبخ العربي ';
                   subtitle = '  طبق رئيسي';
-                  price = '6د.ل';
-                  imageUrl = 'assets/jumaira(maindish).jpg';
+                  price = '10د.ل';
+                  imageUrl = 'assets/araibiankitchenmaindish.jpg';
                   break;
                 case 2:
-                  title = ' جميره للتموين';
-                  subtitle = 'شربه ليبيه';
+                  title = ' المطبخ العربي ';
+                  subtitle = 'طبق رئيسي';
                   price = '8د.ل';
-                  imageUrl = 'assets/jumairasoup.jpg';
+                  imageUrl = 'assets/araibiankitchenmaindish2.jpg';
                   break;
-                case 3:
-                  title = ' جميره للتموين';
-                  subtitle = 'لحم بالصوص البني';
-                  price = '7د.ل';
-                  imageUrl = 'assets/meat_image.jpg';
-                  break;
-                case 4:
-                  title = ' جميره للتموين';
-                  subtitle = 'فواكه متنوعه';
-                  price = '4د.ل';
-                  imageUrl = 'assets/jumairafruitsalad.jpg';
-                  break;
+
                 default:
                   title = 'الفخامه الملكيه';
                   subtitle = 'كرت';
@@ -104,7 +99,6 @@ class Fooddetailedscreen extends StatelessWidget {
                         CupertinoPageRoute(
                             builder: (context) => const shoppingcart()),
                         (route) => false);
-                    
                   },
                 ),
               );

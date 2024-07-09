@@ -53,27 +53,27 @@ class Vendorsscreen extends StatelessWidget {
               phoneNumber = '0913092828';
               place = "الهواري";
               stars = [
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
@@ -86,27 +86,27 @@ class Vendorsscreen extends StatelessWidget {
               place = "الفويهات الرحبه";
               phoneNumber = '0918884545';
               stars = [
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star_half,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star_border,
                   color: Colors.amber,
                   size: 20.0,
@@ -119,27 +119,27 @@ class Vendorsscreen extends StatelessWidget {
               place = " بلعون";
               phoneNumber = '0918884545';
               stars = [
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star_border,
                   color: Colors.amber,
                   size: 20.0,
@@ -152,27 +152,27 @@ class Vendorsscreen extends StatelessWidget {
               place = "شارع الوكالات";
               phoneNumber = '0916683593';
               stars = [
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star_border,
                   color: Colors.amber,
                   size: 20.0,
                 ),
-                Icon(
+                const Icon(
                   Icons.star_border,
                   color: Colors.amber,
                   size: 20.0,
@@ -219,10 +219,10 @@ class VendorContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 60, left: 100, top: 20),
+      padding: const EdgeInsets.only(right: 30, left: 30, top: 20),
       child: Container(
-        width: 290,
-        height: 230,
+        width: 300,
+        height: 300,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
@@ -231,28 +231,28 @@ class VendorContainer extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.only(right: 10, left: 60, top: 10),
+          padding: const EdgeInsets.only(right: 10, left: 60, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
-              Text('التفاصيل'),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
+              const Text('التفاصيل'),
+              const SizedBox(height: 10),
               Text(details),
-              SizedBox(height: 10),
-              Divider(
+              const SizedBox(height: 10),
+              const Divider(
                 color: Colors.grey,
                 thickness: 1.0,
                 indent: 0,
@@ -264,14 +264,14 @@ class VendorContainer extends StatelessWidget {
                   Text('المكان: $place'),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('الهاتف:$phoneNumber'),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: stars,

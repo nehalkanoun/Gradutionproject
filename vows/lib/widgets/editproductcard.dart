@@ -39,7 +39,7 @@ class _EditproductcardState extends State<Editproductcard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 185,
         maxHeight: 130,
       ),
@@ -60,7 +60,7 @@ class _EditproductcardState extends State<Editproductcard> {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(widget.imageUrl),
+                image: AssetImage(widget.imageUrl),
                 fit: BoxFit.fill,
               ),
               borderRadius: BorderRadius.circular(20.0),
@@ -81,7 +81,6 @@ class _EditproductcardState extends State<Editproductcard> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5.0),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
@@ -101,10 +100,13 @@ class _EditproductcardState extends State<Editproductcard> {
               ),
               _isEditing
                   ? TextField(
-                      controller: TextEditingController(text: _price),
+                      style: TextStyle(fontSize: 15),
+                      controller: TextEditingController(
+                        text: _price,
+                      ),
                       onChanged: (value) => _price = value,
                     )
-                  : Text(_price, style: TextStyle(fontSize: 13)),
+                  : Text(_price + "د.ل", style: TextStyle(fontSize: 15)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

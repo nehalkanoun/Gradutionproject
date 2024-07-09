@@ -67,7 +67,6 @@ class venues extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'alamiravenue.jpg',
               title: 'قاعة الاميره',
               location: 'فينيسيا',
               cardText: 'This is the text for the first card.',
@@ -79,13 +78,12 @@ class venues extends StatelessWidget {
                   ),
                 );
               },
-              imageUrl: 'alamiravenue.jpg',
+              imageUrl: 'assets/alamiravenue.jpg',
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              imageAsset: 'venesia1.jpg',
               title: 'قاعة فينيسيا1',
               location: 'فينيسيا',
               cardText: 'This is the text for the second card.',
@@ -97,7 +95,7 @@ class venues extends StatelessWidget {
                   ),
                 );
               },
-              imageUrl: 'venesia1.jpg',
+              imageUrl: 'assets/venesia1.jpg',
             ),
           ),
         ],

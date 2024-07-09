@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vows/screens/addproductseller.dart';
-import 'package:vows/screens/cardsdetailedscreen.dart';
-import 'package:vows/screens/drinksdetailedcsreen.dart';
-import 'package:vows/screens/drinksscreen.dart';
+
 import 'package:vows/screens/editproductseller.dart';
-import 'package:vows/screens/fooddetailedscreen.dart';
-import 'package:vows/screens/foodscreen.dart';
+
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/login.dart';
+import 'package:vows/screens/ordersscreen.dart';
 import 'package:vows/screens/sellerhome.dart';
 import 'package:vows/screens/settings.dart';
 import 'package:vows/screens/shoppingcart.dart';
-import 'package:vows/screens/test.dart';
+import 'package:vows/screens/signup.dart';
 import 'package:vows/screens/vendorsscreen.dart';
-import 'package:vows/screens/venuesdetailedscreen.dart';
-
-import 'package:vows/screens/venuesscreen.dart';
+import 'package:vows/widgets/orderscard.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -46,7 +41,7 @@ class SplashScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => Editproduct()),
+                      CupertinoPageRoute(builder: (context) => signup()),
                       (route) => false);
                 },
                 child: const Text(
@@ -64,29 +59,13 @@ class SplashScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => const Home()),
+                      CupertinoPageRoute(builder: (context) => const Login()),
                       (route) => false);
                 },
                 child: const Text(
                   "تسجيل دخول",
                   style: TextStyle(color: Colors.white),
                 )),
-            ElevatedButton(
-                style: ButtonStyle(
-                    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 101, 143, 193))),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const MyNavigationBar()),
-                      (route) => false);
-                },
-                child: const Text(
-                  " test",
-                  style: TextStyle(color: Colors.white),
-                ))
           ],
         ),
       ),

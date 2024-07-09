@@ -10,9 +10,7 @@ class Addproduct extends StatefulWidget {
 }
 
 class _AddproductState extends State<Addproduct> {
-  // ignore: unused_field
   String _productName = '';
-  // ignore: unused_field
   String _productPrice = '';
 
   @override
@@ -71,7 +69,7 @@ class _AddproductState extends State<Addproduct> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.asset(
-                            '',
+                            'assets/addimage.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -89,7 +87,7 @@ class _AddproductState extends State<Addproduct> {
                                 fontSize: 16.0,
                               ),
                             ),
-                            const SizedBox(height: 5.0),
+                            const SizedBox(height: 2.0),
                             TextField(
                               onChanged: (value) {
                                 setState(() {
@@ -107,7 +105,6 @@ class _AddproductState extends State<Addproduct> {
                                 border: InputBorder.none,
                               ),
                             ),
-                            const SizedBox(height: 5.0),
                             TextField(
                               onChanged: (value) {
                                 setState(() {
@@ -126,7 +123,7 @@ class _AddproductState extends State<Addproduct> {
                                 border: InputBorder.none,
                               ),
                             ),
-                            const SizedBox(height: 5.0),
+                            const SizedBox(height: 2.0),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -152,7 +149,7 @@ class _AddproductState extends State<Addproduct> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: 10.0,
                                 ),
                               ),
                             ),

@@ -68,17 +68,8 @@ class shoppingcart extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(
-          height: 1,
-        ),
         Container(
-          decoration: BoxDecoration(
-            color: Color.fromARGB(232, 232, 232, 232),
-          ),
-        ),
-        SizedBox(height: 16.0),
-        Container(
-          height: 234,
+          height: 280,
           width: 600,
           color: Color.fromARGB(232, 201, 200, 200),
           child: Padding(
@@ -90,34 +81,27 @@ class shoppingcart extends StatelessWidget {
                   ':التفاصيل',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 14),
-                Text(
-                  'سعر القطعه : 20 د.ل',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
-                ),
-                SizedBox(height: 14),
+                SizedBox(height: 5),
+                SizedBox(height: 5),
                 Text(
                   'الاجمالي : 600 د.ل',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24,
+                    fontSize: 20,
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Center(
                   child: ElevatedButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(
-                        const EdgeInsets.all(20),
+                        const EdgeInsets.all(12),
                       ),
                       backgroundColor: MaterialStateProperty.all(
                         const Color.fromARGB(255, 101, 143, 193),

@@ -1,18 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:vows/screens/cardsscreen.dart';
 import 'package:vows/screens/drinksscreen.dart';
 import 'package:vows/screens/foodscreen.dart';
-
-import 'package:vows/screens/login.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:vows/screens/shoppingcart.dart';
-
-import 'package:vows/screens/test.dart';
 import 'package:vows/screens/venuesscreen.dart';
 
-
 import 'package:vows/widgets/card.dart';
+
+class Randomproducts {
+  static Future<List<Map<String, dynamic>>> fetchRandomProducts() async {
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:8000/api/random-products/'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body)['data'] as List<dynamic>;
+      return jsonData
+          .map((product) => {
+                'title': product['username'],
+                'subtitle': product['name'],
+                'price': product['price'].toString(),
+              })
+          .toList();
+    } else {
+      throw Exception('Failed to fetch random products');
+    }
+  }
+}
 
 class Home extends StatelessWidget {
   const Home({Key? key});
@@ -20,194 +35,155 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 101, 143, 193),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                CupertinoPageRoute(builder: (context) => const Login()),
-                (route) => false);
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add_shopping_cart),
-            color: Colors.black,
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const shoppingcart()),
-                  (route) => false);
-            },
-          ),
-        ],
-        title: const Center(
-          child: Text(
-            "الصفحة الرئيسية",
-            style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add_shopping_cart),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const shoppingcart()),
+                    (route) => false);
+              },
+            ),
+          ],
+          title: const Center(
+            child: Text(
+              "الصفحة الرئيسية",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
-      ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 27.0, top: 20, bottom: 15),
-          child: Text(
-            "الفئات",
-            style: TextStyle(fontSize: 20),
-            textDirection: TextDirection.rtl,
+        body: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 27.0, top: 20, bottom: 15),
+            child: Text(
+              "الفئات",
+              style: TextStyle(fontSize: 20),
+              textDirection: TextDirection.rtl,
+            ),
           ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0, left: 20),
-                child: CategoryBox(
-                  text: 'القاعات',
-                  image: AssetImage('assets/venues.jpg'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const venues(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: CategoryBox(
-                  text: 'الكروت',
-                  image: AssetImage('assets/cards.jpg'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const cards(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: CategoryBox(
-                  text: 'المشروبات',
-                  image: AssetImage('assets/drinks.jpg'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const drinks(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 20.0,
-                ),
-                child: CategoryBox(
-                  text: 'الأكل',
-                  image: AssetImage('assets/food.jpg'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const Food(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0, top: 10, bottom: 20),
-          child: Text(
-            "المنتجات",
-            style: TextStyle(fontSize: 20),
-            textDirection: TextDirection.rtl,
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              String title;
-              String subtitle;
-              String price;
-              String imageUrl;
-
-              switch (index) {
-                case 0:
-                  title = ' جميره للتموين';
-                  subtitle = 'مقبلات ';
-                  price = '6د.ل';
-                  imageUrl = 'assets/jumaira(appe).jpg';
-                  break;
-                case 1:
-                  title = 'كافي فيقو';
-                  subtitle = 'ايس كراميل';
-                  price = '10د.ل';
-                  imageUrl = 'assets/icedcramel.jpg';
-                  break;
-                case 2:
-                  title = ' جميره للتموين';
-                  subtitle = 'شربه ليبيه';
-                  price = '8د.ل';
-                  imageUrl = 'assets/jumairasoup.jpg';
-                  break;
-                case 3:
-                  title = 'الفخامه الملكيه';
-                  subtitle = 'كرت';
-                  price = '6د.ل';
-                  imageUrl = 'assets/card5.jpg';
-                  break;
-                case 4:
-                  title = ' جميره للتموين';
-                  subtitle = 'فواكه متنوعه';
-                  price = '4د.ل';
-                  imageUrl = 'assets/jumairafruitsalad.jpg';
-                  break;
-                default:
-                  title = 'الفخامه الملكيه';
-                  subtitle = 'كرت';
-                  price = '6د.ل';
-                  imageUrl = 'https://example.com/default.jpg';
-              }
-
-              return Padding(
-                padding:
-                    const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
-                child: ProductCard(
-                  title: title,
-                  subtitle: subtitle,
-                  price: price,
-                  imageUrl: imageUrl,
-                  onAddToCart: () {
-                    Navigator.pushAndRemoveUntil(
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0, left: 20),
+                  child: CategoryBox(
+                    text: 'القاعات',
+                    image: AssetImage('assets/venues.jpg'),
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const shoppingcart()),
-                        (route) => false);
-                  },
+                          builder: (context) => const venues(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              );
-            },
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: CategoryBox(
+                    text: 'الكروت',
+                    image: AssetImage('assets/cards.jpg'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const cards(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: CategoryBox(
+                    text: 'المشروبات',
+                    image: AssetImage('assets/drinks.jpg'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const drinks(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20.0,
+                  ),
+                  child: CategoryBox(
+                    text: 'الأكل',
+                    image: AssetImage('assets/food.jpg'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => const Food(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ]),
-    );
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0, top: 10, bottom: 20),
+            child: Text(
+              "المنتجات",
+              style: TextStyle(fontSize: 20),
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: Randomproducts.fetchRandomProducts(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final products = snapshot.data!;
+                  return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 12.0, right: 12.0),
+                        child: ProductCard(
+                          title: product['title'],
+                          subtitle: product['subtitle'],
+                          price: product['price'],
+                          imageUrl: 'your_default_image_asset_or_url',
+                          onAddToCart: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const shoppingcart()),
+                              (route) => false,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          )
+        ]));
   }
 }
 
@@ -259,9 +235,7 @@ class CategoryBox extends StatelessWidget {
             ],
           ),
         ),
-        
       ),
-      BottomNavigationBar: const MyNavigationBar(),
     );
   }
 }
