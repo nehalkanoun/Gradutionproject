@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProductCard extends StatefulWidget {
   final String title;
@@ -9,7 +7,8 @@ class ProductCard extends StatefulWidget {
   final String imageUrl;
   final VoidCallback onAddToCart;
 
-  ProductCard({
+  const ProductCard({
+    super.key,
     required this.title,
     required this.subtitle,
     required this.price,
@@ -40,7 +39,7 @@ class _ProductCard extends State<ProductCard> {
 
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 100,
       ),
       decoration: BoxDecoration(
@@ -78,12 +77,13 @@ class _ProductCard extends State<ProductCard> {
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(
                 widget.title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5.0),
+              const SizedBox(height: 5.0),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
@@ -91,14 +91,14 @@ class _ProductCard extends State<ProductCard> {
                   children: [
                     Text(
                       widget.subtitle,
-                      style: TextStyle(fontSize: 10),
+                      style: const TextStyle(fontSize: 14),
                     ),
                   ],
                 ),
               ),
-              Text(widget.price, style: TextStyle(fontSize: 10)),
+              Text(widget.price, style: const TextStyle(fontSize: 14)),
               Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
@@ -126,11 +126,11 @@ class _ProductCard extends State<ProductCard> {
                             child: Container(
                               width: 20,
                               height: 30,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 210, 210, 210),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Icon(
                                   Icons.add,
                                   color: Colors.black,
@@ -143,28 +143,28 @@ class _ProductCard extends State<ProductCard> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 2.0),
+                  const SizedBox(width: 2.0),
                   Padding(
                     padding: const EdgeInsets.only(right: 2),
                     child: Text(
                       '$quantity',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(width: 2.0),
+                  const SizedBox(width: 2.0),
                   GestureDetector(
                     onTap: _decreaseQuantity,
                     child: Container(
                       width: 20,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 210, 210, 210),
+                        color: const Color.fromARGB(255, 210, 210, 210),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.remove,
                           color: Colors.black,

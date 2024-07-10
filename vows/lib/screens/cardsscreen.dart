@@ -7,8 +7,8 @@ import 'package:vows/screens/home.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/maincard.dart';
 
-class cards extends StatelessWidget {
-  const cards({super.key});
+class Cards extends StatelessWidget {
+  const Cards({super.key});
 
   void initState() {
     Timer(const Duration(seconds: 3), () {});
@@ -22,7 +22,7 @@ class cards extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -35,7 +35,7 @@ class cards extends StatelessWidget {
             icon: const Icon(Icons.add_shopping_cart),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const shoppingcart(),
@@ -53,13 +53,13 @@ class cards extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
               ),
             ],
           ),
@@ -70,10 +70,10 @@ class cards extends StatelessWidget {
               location: 'بلعون',
               cardText: 'This is the text for the first card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => const cardsdetailedscreen(),
+                    builder: (context) => const Cardsdetailedscreen(),
                   ),
                 );
               },

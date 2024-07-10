@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/login.dart';
 
-class newpassword extends StatelessWidget {
-  const newpassword({Key? key});
+class Newpassword extends StatelessWidget {
+  const Newpassword({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "New password",
           style: TextStyle(
             color: Colors.black,
@@ -19,43 +19,43 @@ class newpassword extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
             Navigator.pushAndRemoveUntil(
               context,
-              CupertinoPageRoute(builder: (context) => Login()),
+              CupertinoPageRoute(builder: (context) => const Login()),
               (route) => false,
             );
           },
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 60, left: 40, right: 40),
+        padding: const EdgeInsets.only(top: 60, left: 40, right: 40),
         color: Colors.white,
         child: ListView(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 100,
                   height: 20,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Enter New password",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                TextField(
+                const TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(vertical: 4),
@@ -64,16 +64,16 @@ class newpassword extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   cursorColor: Colors.black,
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   "Confirm Password",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 5),
-                Row(
+                const SizedBox(height: 5),
+                const Row(
                   children: [
                     Expanded(
                       child: TextField(
@@ -88,7 +88,7 @@ class newpassword extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Align(
@@ -107,7 +107,8 @@ class newpassword extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          CupertinoPageRoute(builder: (context) => Login()),
+                          CupertinoPageRoute(
+                              builder: (context) => const Login()),
                           (route) => false,
                         );
                       },

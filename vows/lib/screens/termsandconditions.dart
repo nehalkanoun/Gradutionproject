@@ -14,7 +14,7 @@ class Termsandconditions extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Settings(),
@@ -27,7 +27,7 @@ class Termsandconditions extends StatelessWidget {
             icon: const Icon(Icons.add_shopping_cart),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const shoppingcart(),

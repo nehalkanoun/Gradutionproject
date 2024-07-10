@@ -58,8 +58,8 @@ class Home extends StatelessWidget {
           ),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 27.0, top: 20, bottom: 15),
+          const Padding(
+            padding: EdgeInsets.only(right: 27.0, top: 20, bottom: 15),
             child: Text(
               "الفئات",
               style: TextStyle(fontSize: 20),
@@ -76,7 +76,7 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0, left: 20),
                   child: CategoryBox(
                     text: 'القاعات',
-                    image: AssetImage('assets/venues.jpg'),
+                    image: const AssetImage('assets/venues.jpg'),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -91,12 +91,12 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: CategoryBox(
                     text: 'الكروت',
-                    image: AssetImage('assets/cards.jpg'),
+                    image: const AssetImage('assets/cards.jpg'),
                     onPressed: () {
                       Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => const cards(),
+                          builder: (context) => const Cards(),
                         ),
                       );
                     },
@@ -106,12 +106,12 @@ class Home extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: CategoryBox(
                     text: 'المشروبات',
-                    image: AssetImage('assets/drinks.jpg'),
+                    image: const AssetImage('assets/drinks.jpg'),
                     onPressed: () {
                       Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => const drinks(),
+                          builder: (context) => const Drinks(),
                         ),
                       );
                     },
@@ -123,7 +123,7 @@ class Home extends StatelessWidget {
                   ),
                   child: CategoryBox(
                     text: 'الأكل',
-                    image: AssetImage('assets/food.jpg'),
+                    image: const AssetImage('assets/food.jpg'),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -137,8 +137,8 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0, top: 10, bottom: 20),
+          const Padding(
+            padding: EdgeInsets.only(right: 20.0, top: 10, bottom: 20),
             child: Text(
               "المنتجات",
               style: TextStyle(fontSize: 20),
@@ -150,7 +150,7 @@ class Home extends StatelessWidget {
               future: Randomproducts.fetchRandomProducts(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
@@ -166,13 +166,13 @@ class Home extends StatelessWidget {
                           title: product['title'],
                           subtitle: product['subtitle'],
                           price: product['price'],
-                          imageUrl: 'your_default_image_asset_or_url',
+                          imageUrl:
+                              "vows/assets/سان سابيستيان-vigo.jpg", // Replace with the appropriate asset name
                           onAddToCart: () {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                               context,
                               CupertinoPageRoute(
                                   builder: (context) => const shoppingcart()),
-                              (route) => false,
                             );
                           },
                         ),
@@ -192,7 +192,8 @@ class CategoryBox extends StatelessWidget {
   final ImageProvider image;
   final VoidCallback onPressed;
 
-  CategoryBox({
+  const CategoryBox({
+    super.key,
     required this.text,
     required this.image,
     required this.onPressed,

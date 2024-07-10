@@ -23,7 +23,7 @@ class venues extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -36,7 +36,7 @@ class venues extends StatelessWidget {
             icon: const Icon(Icons.add_shopping_cart),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const shoppingcart(),
@@ -71,7 +71,7 @@ class venues extends StatelessWidget {
               location: 'فينيسيا',
               cardText: 'This is the text for the first card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const VenuesDetailedScreen(),
@@ -88,7 +88,7 @@ class venues extends StatelessWidget {
               location: 'فينيسيا',
               cardText: 'This is the text for the second card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const VenuesDetailedScreen(),

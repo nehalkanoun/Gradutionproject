@@ -14,7 +14,7 @@ class shoppingcart extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -108,11 +108,10 @@ class shoppingcart extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => const Home()),
-                          (route) => false);
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(builder: (context) => const Home()),
+                      );
                     },
                     child: const Text(
                       " تأكيدالطلب",

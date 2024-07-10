@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:vows/screens/login.dart';
 import 'package:vows/screens/vereficationscreen.dart';
 
-class forgetpassword extends StatelessWidget {
-  const forgetpassword({super.key});
+class Forgetpassword extends StatelessWidget {
+  const Forgetpassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,67 +37,65 @@ class forgetpassword extends StatelessWidget {
               Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            width: 100,
-                            height: 20,
+                    Column(
+                      children: [
+                        const SizedBox(
+                          width: 100,
+                          height: 20,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          "Enter email address",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
-                          const SizedBox(
-                            height: 10,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(vertical: 4),
                           ),
-                          const Text(
-                            "Enter email address",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(vertical: 4),
-                            ),
-                            textAlign: TextAlign.left,
-                            keyboardType: TextInputType.text,
-                            cursorColor: Colors.black,
-                          ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Container(
-                            width: 200,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(20),
-                                ),
-                                backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromARGB(255, 101, 143, 193),
-                                ),
+                          textAlign: TextAlign.left,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.black,
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        SizedBox(
+                          width: 200,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(20),
                               ),
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const vereficationscreen()),
-                                  (route) => false,
-                                );
-                              },
-                              child: const Text(
-                                "Send",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                              backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 101, 143, 193),
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) =>
+                                        const Vereficationscreen()),
+                                (route) => false,
+                              );
+                            },
+                            child: const Text(
+                              "Send",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ]),
             ])));

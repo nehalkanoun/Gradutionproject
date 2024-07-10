@@ -21,7 +21,7 @@ class _EditproductState extends State<Editproduct> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Sellerhome(),

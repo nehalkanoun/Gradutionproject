@@ -6,8 +6,8 @@ import 'package:vows/screens/home.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/maincard.dart';
 
-class drinks extends StatelessWidget {
-  const drinks({super.key});
+class Drinks extends StatelessWidget {
+  const Drinks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class drinks extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -30,7 +30,7 @@ class drinks extends StatelessWidget {
             icon: const Icon(Icons.add_shopping_cart),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const shoppingcart(),
@@ -48,13 +48,13 @@ class drinks extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
               ),
             ],
           ),
@@ -65,7 +65,7 @@ class drinks extends StatelessWidget {
               location: 'الوكالات',
               cardText: 'This is the text for the first card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const Vigoscreen(),
@@ -82,7 +82,7 @@ class drinks extends StatelessWidget {
               location: 'فينيسيا',
               cardText: 'This is the text for the second card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const Daniascreen(),

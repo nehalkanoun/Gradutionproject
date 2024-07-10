@@ -33,16 +33,20 @@ class _LoginState extends State<Login> {
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
+        // ignore: avoid_print
         print(responseData);
 
         Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
+        // ignore: avoid_print
         print('Login failed. Status code: ${response.body}');
       }
     } catch (e) {
+      // ignore: avoid_print
       print('Error: $e');
     }
   }
@@ -54,6 +58,7 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -97,10 +102,10 @@ class _LoginState extends State<Login> {
                 height: 15,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 90),
+                padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: TextField(
                   controller: usernamecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                   textAlign: TextAlign.left,
@@ -149,7 +154,7 @@ class _LoginState extends State<Login> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const forgetpassword()),
+                            builder: (context) => const Forgetpassword()),
                         (route) => false);
                   },
                   child: const Padding(
@@ -179,11 +184,11 @@ class MyPasswordField extends StatelessWidget {
   final TextEditingController passwordcontroller;
 
   const MyPasswordField({
-    Key? key,
+    super.key,
     required this.isPasswordVisible,
     required this.onTap,
     required this.passwordcontroller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +199,7 @@ class MyPasswordField extends StatelessWidget {
           height: 15,
         ),
         const Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 90),
+          padding: EdgeInsets.symmetric(horizontal: 90),
           child: Text(
             "كلمة المرور:",
           ),

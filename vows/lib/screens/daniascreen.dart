@@ -20,10 +20,10 @@ class _DaniascreenState extends State<Daniascreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => const drinks(),
+                  builder: (context) => const Drinks(),
                 ),
               );
             },
@@ -33,7 +33,7 @@ class _DaniascreenState extends State<Daniascreen> {
               icon: const Icon(Icons.add_shopping_cart),
               color: Colors.black,
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const shoppingcart(),
@@ -105,11 +105,11 @@ class _DaniascreenState extends State<Daniascreen> {
                   price: price,
                   imageUrl: imageUrl,
                   onAddToCart: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const shoppingcart()),
-                        (route) => false);
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const shoppingcart()),
+                    );
                   },
                 ),
               );

@@ -19,7 +19,7 @@ class Settings extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -186,11 +186,11 @@ class Settings extends StatelessWidget {
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const Aboutus()),
-                              (route) => false);
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const Aboutus()),
+                          );
                         },
                         icon: Icon(Icons.error_outline_outlined)),
                   ],
@@ -227,10 +227,9 @@ class Settings extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                       context,
                       CupertinoPageRoute(builder: (context) => Login()),
-                      (route) => false,
                     );
                   },
                   style: ElevatedButton.styleFrom(

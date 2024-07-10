@@ -1,17 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:vows/screens/editproductseller.dart';
-
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/login.dart';
-import 'package:vows/screens/ordersscreen.dart';
-import 'package:vows/screens/sellerhome.dart';
-import 'package:vows/screens/settings.dart';
-import 'package:vows/screens/shoppingcart.dart';
-import 'package:vows/screens/signup.dart';
-import 'package:vows/screens/vendorsscreen.dart';
-import 'package:vows/widgets/orderscard.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -39,10 +29,10 @@ class SplashScreen extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(
                         const Color.fromARGB(255, 101, 143, 193))),
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => signup()),
-                      (route) => false);
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(builder: (context) => Home()),
+                  );
                 },
                 child: const Text(
                   "انشاء حساب",
@@ -57,10 +47,10 @@ class SplashScreen extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(
                         const Color.fromARGB(255, 101, 143, 193))),
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      CupertinoPageRoute(builder: (context) => const Login()),
-                      (route) => false);
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(builder: (context) => const Login()),
+                  );
                 },
                 child: const Text(
                   "تسجيل دخول",

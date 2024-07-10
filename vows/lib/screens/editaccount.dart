@@ -14,7 +14,7 @@ class Editaccount extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Settings(),
@@ -27,7 +27,7 @@ class Editaccount extends StatelessWidget {
               icon: const Icon(Icons.add_shopping_cart),
               color: Colors.black,
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const shoppingcart(),
@@ -121,7 +121,7 @@ class Editaccount extends StatelessWidget {
               cursorColor: Colors.black,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 105,
           ),
           Center(
@@ -135,10 +135,10 @@ class Editaccount extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(builder: (context) => const Settings()),
-                    (route) => false);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => const Settings()),
+                );
               },
               child: const Text(
                 " حفظ التغيير",

@@ -6,6 +6,7 @@ class Addproduct extends StatefulWidget {
   const Addproduct({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddproductState createState() => _AddproductState();
 }
 
@@ -21,7 +22,7 @@ class _AddproductState extends State<Addproduct> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Sellerhome(),
@@ -79,7 +80,7 @@ class _AddproductState extends State<Addproduct> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
+                            const Text(
                               'كافي فيقو',
                               style: TextStyle(
                                 color: Colors.black,
@@ -96,12 +97,11 @@ class _AddproductState extends State<Addproduct> {
                               },
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'اسم الصنف',
                                 hintTextDirection: TextDirection.rtl,
-                                hintStyle: const TextStyle(fontSize: 14.0),
-                                contentPadding:
-                                    const EdgeInsets.only(right: 10.0),
+                                hintStyle: TextStyle(fontSize: 14.0),
+                                contentPadding: EdgeInsets.only(right: 10.0),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -114,12 +114,11 @@ class _AddproductState extends State<Addproduct> {
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
                               cursorColor: Colors.black,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'السعر',
                                 hintTextDirection: TextDirection.rtl,
-                                hintStyle: const TextStyle(fontSize: 14.0),
-                                contentPadding:
-                                    const EdgeInsets.only(right: 10.0),
+                                hintStyle: TextStyle(fontSize: 14.0),
+                                contentPadding: EdgeInsets.only(right: 10.0),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -137,11 +136,10 @@ class _AddproductState extends State<Addproduct> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushAndRemoveUntil(
+                                Navigator.push(
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) => const Sellerhome()),
-                                  (route) => false,
                                 );
                               },
                               child: const Text(

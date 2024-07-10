@@ -4,14 +4,14 @@ import 'package:vows/screens/cardsscreen.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/card.dart';
 
-class cardsdetailedscreen extends StatefulWidget {
-  const cardsdetailedscreen({super.key});
+class Cardsdetailedscreen extends StatefulWidget {
+  const Cardsdetailedscreen({super.key});
 
   @override
-  State<cardsdetailedscreen> createState() => _cardsdetailedscreenState();
+  State<Cardsdetailedscreen> createState() => _CardsdetailedscreenState();
 }
 
-class _cardsdetailedscreenState extends State<cardsdetailedscreen> {
+class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +20,10 @@ class _cardsdetailedscreenState extends State<cardsdetailedscreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => const cards(),
+                  builder: (context) => const Cards(),
                 ),
               );
             },
@@ -33,7 +33,7 @@ class _cardsdetailedscreenState extends State<cardsdetailedscreen> {
               icon: const Icon(Icons.add_shopping_cart),
               color: Colors.black,
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const shoppingcart(),
@@ -105,12 +105,11 @@ class _cardsdetailedscreenState extends State<cardsdetailedscreen> {
                   price: price,
                   imageUrl: imageUrl,
                   onAddToCart: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const shoppingcart()),
-                        (route) => false);
-                   
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const shoppingcart()),
+                    );
                   },
                 ),
               );

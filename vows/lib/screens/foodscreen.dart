@@ -17,7 +17,7 @@ class Food extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Home(),
@@ -30,7 +30,7 @@ class Food extends StatelessWidget {
             icon: const Icon(Icons.add_shopping_cart),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const shoppingcart(),
@@ -65,7 +65,7 @@ class Food extends StatelessWidget {
               location: 'الهواري',
               cardText: 'This is the text for the first card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const Jumairadetailedscreen(),
@@ -82,7 +82,7 @@ class Food extends StatelessWidget {
               location: 'الرحبه',
               cardText: 'This is the text for the second card.',
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => const Arabiankitchenscreen(),
