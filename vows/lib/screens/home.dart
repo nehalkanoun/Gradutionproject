@@ -167,7 +167,7 @@ class Home extends StatelessWidget {
                           subtitle: product['subtitle'],
                           price: product['price'],
                           imageUrl:
-                              "vows/assets/سان سابيستيان-vigo.jpg", // Replace with the appropriate asset name
+                              "assets/${product['subtitle']}-${product['title']}.jpg",
                           onAddToCart: () {
                             Navigator.push(
                               context,
