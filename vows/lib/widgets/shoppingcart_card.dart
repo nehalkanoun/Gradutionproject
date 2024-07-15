@@ -1,17 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Shoppingcartcard extends StatefulWidget {
-  final String title;
-  final String subtitle;
-  final String price;
-  final String imageUrl;
+  final String? sellerName;
+  final String? productName;
+  final String? price;
+  final String? imageUrl;
+  final int? amount;
+  final VoidCallback? onpressed;
 
   Shoppingcartcard({
-    required this.title,
-    required this.subtitle,
-    required this.price,
-    required this.imageUrl,
+    this.sellerName,
+    this.productName,
+    this.price,
+    this.amount,
+    this.imageUrl,
+    this.onpressed,
   });
 
   @override
@@ -19,16 +22,22 @@ class Shoppingcartcard extends StatefulWidget {
 }
 
 class _ShoppingcartcardState extends State<Shoppingcartcard> {
-  int quantity = 1;
+  final quantityController = TextEditingController();
 
- 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.amount != null) {
+      quantityController.text = widget.amount.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
         maxWidth: 185,
-        maxHeight: 130,
+        maxHeight: 140,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -42,102 +51,95 @@ class _ShoppingcartcardState extends State<Shoppingcartcard> {
           ),
         ],
       ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(widget.imageUrl),
-                fit: BoxFit.fill,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: widget.imageUrl != null
+                      ? AssetImage(widget.imageUrl!)
+                      : AssetImage('assets/default.jpg'),
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.circular(20.0),
               ),
-              borderRadius: BorderRadius.circular(20.0),
+              child: Container(
+                width: 100,
+              ),
             ),
           ),
-        ),
-        const Spacer(),
-        Expanded(
+          Expanded(
             child: Padding(
-          padding: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 5.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      widget.subtitle,
-                      style: TextStyle(fontSize: 15),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    widget.sellerName ?? '',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-              ),
-              Text(widget.price, style: TextStyle(fontSize: 13)),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: _decreaseQuantity,
-                      child: Container(
-                        width: 20,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 210, 210, 210),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          widget.productName ?? '',
+                          style: const TextStyle(fontSize: 14),
                         ),
-                        child: Center(
-                          child: Icon(
-                            Icons.remove,
-                            color: Colors.black,
-                            size: 20,
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Text('د.ل',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          )),
+                      const SizedBox(width: 2),
+                      Text(widget.price ?? '',
+                          style: const TextStyle(fontSize: 14)),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(width: 20.0),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 2, top: 5),
+                        child: SizedBox(
+                          width: 60,
+                          height: 35,
+                          child: TextField(
+                            controller: quantityController,
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.right,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'الكمية',
+                              labelStyle: TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 8.0),
-                    Text(
-                      '$quantity',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 8.0),
-                    GestureDetector(
-                      onTap: _increaseQuantity,
-                      child: Container(
-                        width: 20,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 210, 210, 210),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-        ))
-      ]),
+        ],
+      ),
     );
   }
 }

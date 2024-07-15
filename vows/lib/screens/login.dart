@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/forgetpassword.dart';
 import 'package:vows/screens/home.dart';
+import 'package:vows/screens/sellerhome.dart';
 import 'package:vows/screens/splashscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -17,30 +20,67 @@ class _LoginState extends State<Login> {
   bool isPasswordVisible = false;
   final usernamecontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  Future<void> _loginUser(
+  Future<void> _logincustomer(
       BuildContext context, String username, String password) async {
-    final url = Uri.parse('http://127.0.0.1:8000/api/auth/logincustomer/');
+    final url = Uri.parse('$backendURL/api/auth/logincustomer/');
     try {
       final body = {
         "username": usernamecontroller.text,
         "password": passwordcontroller.text,
       };
-
       final response = await http.post(url,
           body: jsonEncode(body),
           headers: {'Content-Type': 'application/json'});
-
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         print(responseData);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('username', usernamecontroller.text);
 
+        await prefs.setInt('cartID', responseData['cart_id']);
+        await prefs.setString('token', responseData['token']);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
         print('Login failed. Status code: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> _loginseller(
+      BuildContext context, String username, String password) async {
+    final url = Uri.parse('http://127.0.0.1:8000/api/auth/loginseller/');
+    try {
+      final body = {
+        "username": usernamecontroller.text,
+        "password": passwordcontroller.text,
+      };
+      final response = await http.post(url,
+          body: jsonEncode(body),
+          headers: {'Content-Type': 'application/json'});
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        print(responseData);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('username', usernamecontroller.text);
+        await prefs.setString('token', responseData['token']);
+        await prefs.setInt('id', responseData['id']);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Sellerhome()),
+        );
+      } else {
+        print('Login seller failed. Status code: ${response.body}');
       }
     } catch (e) {
       print('Error: $e');
@@ -104,7 +144,7 @@ class _LoginState extends State<Login> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.right,
                   keyboardType: TextInputType.name,
                   cursorColor: Colors.black,
                 ),
@@ -131,8 +171,26 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                    _loginUser(context, usernamecontroller.text,
-                        passwordcontroller.text);
+                    if (usernamecontroller.text.isEmpty ||
+                        passwordcontroller.text.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: const Text('الرجاء إدخال البيانات'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('موافق'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      _logincustomer(context, usernamecontroller.text,
+                          passwordcontroller.text);
+                      _loginseller(context, usernamecontroller.text,
+                          passwordcontroller.text);
+                    }
                   },
                   child: const Text(
                     " تسجيل دخول",
@@ -219,7 +277,7 @@ class MyPasswordField extends StatelessWidget {
                 ),
               ),
             ),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.right,
             cursorColor: Colors.black,
           ),
         ),

@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/cardsscreen.dart';
+import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/drinksscreen.dart';
 import 'package:vows/screens/foodscreen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:badges/badges.dart' as badges;
 import 'package:vows/screens/shoppingcart.dart';
-import 'package:vows/screens/venuesscreen.dart';
-
-import 'package:vows/widgets/card.dart';
+import 'package:vows/screens/vendorsscreen.dart';
+import 'package:vows/widgets/homecard.dart';
 
 class Randomproducts {
   static Future<List<Map<String, dynamic>>> fetchRandomProducts() async {
     final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/random-products/'));
+        await http.get(Uri.parse('$backendURL/api/random-products/'));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body)['data'] as List<dynamic>;
       return jsonData
@@ -38,16 +40,26 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 101, 143, 193),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.add_shopping_cart),
-              color: Colors.black,
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const shoppingcart()),
-                    (route) => false);
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add_shopping_cart),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
           title: const Center(
@@ -81,7 +93,7 @@ class Home extends StatelessWidget {
                       Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => const venues(),
+                          builder: (context) => const Vendorsscreen(),
                         ),
                       );
                     },
@@ -162,7 +174,7 @@ class Home extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(
                             top: 20.0, left: 12.0, right: 12.0),
-                        child: ProductCard(
+                        child: Homecard(
                           title: product['title'],
                           subtitle: product['subtitle'],
                           price: product['price'],
@@ -172,9 +184,10 @@ class Home extends StatelessWidget {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => const shoppingcart()),
+                                  builder: (context) => const ShoppingCart()),
                             );
                           },
+                          onCartUpdated: () {},
                         ),
                       );
                     },

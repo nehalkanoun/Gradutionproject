@@ -47,7 +47,7 @@ class Forgetpassword extends StatelessWidget {
                           height: 10,
                         ),
                         const Text(
-                          "Enter email address",
+                          "Enter phone number",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

@@ -1,11 +1,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vows/helpers/consts.dart';
+import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/shoppingcart.dart';
+import 'package:badges/badges.dart' as badges;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class Vendorsscreen extends StatelessWidget {
+class Vendorsscreen extends StatefulWidget {
   const Vendorsscreen({super.key});
 
+  @override
+  State<Vendorsscreen> createState() => _VendorsscreenState();
+}
+
+class VendorInfo {
+  static Future<List<Vendor>> fetchVendorInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final headers = {
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(
+      Uri.parse('$backendURL/api/sellers/'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body)['data'] as List<dynamic>;
+      return jsonData.map((seller) => Vendor.fromJson(seller)).toList();
+    } else {
+      throw Exception('Failed to fetch vendor information');
+    }
+  }
+}
+
+class Vendor {
+  final String username;
+  final String phonenumber;
+  final String location;
+  final String details;
+
+  Vendor({
+    required this.username,
+    required this.phonenumber,
+    required this.location,
+    required this.details,
+  });
+
+  factory Vendor.fromJson(Map<String, dynamic> json) {
+    return Vendor(
+      username: json['username'],
+      phonenumber: json['phonenumber'],
+      location: json['location'],
+      details: json['details'],
+    );
+  }
+}
+
+class _VendorsscreenState extends State<Vendorsscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,22 +70,33 @@ class Vendorsscreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushAndRemoveUntil(
-                context,
-                CupertinoPageRoute(builder: (context) => const Home()),
-                (route) => false);
+              context,
+              CupertinoPageRoute(builder: (context) => const Home()),
+              (route) => false,
+            );
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add_shopping_cart),
-            color: Colors.black,
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const shoppingcart()),
-                  (route) => false);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: badges.Badge(
+              badgeContent: Text(
+                cartItems.length.toString(),
+                style: const TextStyle(color: Colors.black),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.add_shopping_cart),
+                color: Colors.black,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => const ShoppingCart(),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
         ],
         title: const Center(
@@ -40,160 +106,32 @@ class Vendorsscreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          String title, details, phoneNumber, place;
-          List<Widget> stars;
-
-          switch (index) {
-            case 0:
-              title = 'Jumeria Catering';
-              details = 'شركة تموين وتوريدات (شركات-مؤسسات-طرق-مواقع)';
-              phoneNumber = '0913092828';
-              place = "الهواري";
-              stars = [
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-              ];
-              break;
-            case 1:
-              title = 'المطبخ العربي';
-              details = "شركه متخصصه بتوفير انواع من الوجبات والحلو";
-              place = "الفويهات الرحبه";
-              phoneNumber = '0918884545';
-              stars = [
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star_half,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star_border,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-              ];
-              break;
-            case 2:
-              title = 'الفخامه الملكيه ';
-              details = ' شركة مختصة بتوفير كروت دعوه للافراح';
-              place = " بلعون";
-              phoneNumber = '0918884545';
-              stars = [
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star_border,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-              ];
-              break;
-            case 3:
-              title = 'كافي فيقو ';
-              details = 'كافي يوفر المشروبات والحلو';
-              place = "شارع الوكالات";
-              phoneNumber = '0916683593';
-              stars = [
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star_border,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-                const Icon(
-                  Icons.star_border,
-                  color: Colors.amber,
-                  size: 20.0,
-                ),
-              ];
-              break;
-            default:
-              title = '';
-              details = '';
-              place = '';
-              phoneNumber = '';
-              stars = [];
+      body: FutureBuilder<List<Vendor>>(
+        future: VendorInfo.fetchVendorInfo(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final sellers = snapshot.data!;
+            return ListView.builder(
+              itemCount: sellers.length,
+              itemBuilder: (context, index) {
+                final seller = sellers[index];
+                return Padding(
+                  padding:
+                      const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
+                  child: VendorContainer(
+                    username: seller.username,
+                    details: seller.details,
+                    phonenumber: seller.phonenumber,
+                    location: seller.location,
+                  ),
+                );
+              },
+            );
           }
-
-          return VendorContainer(
-            title: title,
-            details: details,
-            place: place,
-            phoneNumber: phoneNumber,
-            stars: stars,
-          );
         },
       ),
     );
@@ -201,20 +139,18 @@ class Vendorsscreen extends StatelessWidget {
 }
 
 class VendorContainer extends StatelessWidget {
-  final String title;
+  final String username;
   final String details;
-  final String place;
-  final String phoneNumber;
-  final List<Widget> stars;
+  final String location;
+  final String phonenumber;
 
   const VendorContainer({
-    super.key,
-    required this.title,
+    Key? key,
+    required this.username,
     required this.details,
-    required this.phoneNumber,
-    required this.stars,
-    required this.place,
-  });
+    required this.location,
+    required this.phonenumber,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +177,7 @@ class VendorContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                title,
+                username,
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -261,21 +197,17 @@ class VendorContainer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('المكان: $place'),
+                  Text('المكان: $location'),
                 ],
               ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('الهاتف:$phoneNumber'),
+                  Text('الهاتف: $phonenumber'),
                 ],
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: stars,
-              ),
             ],
           ),
         ),

@@ -1,15 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vows/screens/aboutus.dart';
 import 'package:vows/screens/changepassword.dart';
 import 'package:vows/screens/editaccount.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/login.dart';
 import 'package:vows/screens/termsandconditions.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  final usernamecontroller = TextEditingController();
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    getusername();
+  }
+
+  void getusername() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      username = prefs.getString('username');
+      print(username);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +70,10 @@ class Settings extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "نهال كانون",
-                    style: TextStyle(fontSize: 20),
+                    username ?? 'hyyhh',
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   ElevatedButton(
@@ -73,13 +98,13 @@ class Settings extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 42, right: 42),
                     child: Divider(
-                      color: Color.fromARGB(0, 0, 0, 0).withOpacity(0.9),
+                      color: const Color.fromARGB(0, 0, 0, 0).withOpacity(0.9),
                       thickness: 1,
                     ),
                   ),
@@ -99,10 +124,11 @@ class Settings extends StatelessWidget {
                                             const Changepassword()),
                                     (route) => false);
                               },
-                              icon: Icon(Icons.keyboard_arrow_left_sharp)),
+                              icon:
+                                  const Icon(Icons.keyboard_arrow_left_sharp)),
                         ),
-                        Spacer(),
-                        Text(
+                        const Spacer(),
+                        const Text(
                           "تغيير كلمة المرور",
                         ),
                         Row(
@@ -116,7 +142,7 @@ class Settings extends StatelessWidget {
                                               const Changepassword()),
                                       (route) => false);
                                 },
-                                icon: Icon(Icons.lock_reset_outlined)),
+                                icon: const Icon(Icons.lock_reset_outlined)),
                           ],
                         ),
                       ],
@@ -142,10 +168,10 @@ class Settings extends StatelessWidget {
                                     const Termsandconditions()),
                             (route) => false);
                       },
-                      icon: Icon(Icons.keyboard_arrow_left_sharp)),
+                      icon: const Icon(Icons.keyboard_arrow_left_sharp)),
                 ),
-                Spacer(),
-                Text("الشروط والاحكام "),
+                const Spacer(),
+                const Text("الشروط والاحكام "),
                 Row(
                   children: [
                     IconButton(
@@ -157,7 +183,7 @@ class Settings extends StatelessWidget {
                                       const Termsandconditions()),
                               (route) => false);
                         },
-                        icon: Icon(Icons.menu_book_sharp)),
+                        icon: const Icon(Icons.menu_book_sharp)),
                   ],
                 ),
               ],
@@ -178,10 +204,10 @@ class Settings extends StatelessWidget {
                                 builder: (context) => const Aboutus()),
                             (route) => false);
                       },
-                      icon: Icon(Icons.keyboard_arrow_left_sharp)),
+                      icon: const Icon(Icons.keyboard_arrow_left_sharp)),
                 ),
-                Spacer(),
-                Text("معلومات عنا "),
+                const Spacer(),
+                const Text("معلومات عنا "),
                 Row(
                   children: [
                     IconButton(
@@ -192,17 +218,17 @@ class Settings extends StatelessWidget {
                                 builder: (context) => const Aboutus()),
                           );
                         },
-                        icon: Icon(Icons.error_outline_outlined)),
+                        icon: const Icon(Icons.error_outline_outlined)),
                   ],
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 45),
+          const Padding(
+            padding: EdgeInsets.only(right: 45),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -210,13 +236,13 @@ class Settings extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 42, right: 42),
             child: Divider(
-              color: Color.fromARGB(0, 0, 0, 0).withOpacity(0.9),
+              color: const Color.fromARGB(0, 0, 0, 0).withOpacity(0.9),
               thickness: 1,
             ),
           ),
@@ -226,24 +252,54 @@ class Settings extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(builder: (context) => Login()),
-                    );
+                  onPressed: () async {
+                    try {
+                      final body = {
+                        "token":
+                            "91|bfEkOzQe51SOCYFqx8pq8hRz9nIe2jnSIMvH9r0vc3fc8ec6",
+                      };
+
+                      final response = await http.post(
+                        Uri.parse(
+                            'http://127.0.0.1:8000/api/auth/logoutcustomer/'),
+                        body: jsonEncode(body),
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                      );
+
+                      if (response.statusCode == 200) {
+                        final responseData = jsonDecode(response.body);
+                        if (responseData['success']) {
+                          print(
+                              'Logout successful: ${responseData['message']}');
+                          Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const Login()),
+                          );
+                        } else {
+                          print('Logout failed: ${responseData['message']}');
+                        }
+                      } else {
+                        print(
+                            'Logout failed: ${response.statusCode} - ${response.body}');
+                      }
+                    } catch (e) {
+                      print('Error: $e');
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     elevation: 0,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    foregroundColor: const Color.fromARGB(255, 123, 123,
-                        123), // Set the text color to the desired color
+                    foregroundColor: const Color.fromARGB(255, 123, 123, 123),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/cardsscreen.dart';
+import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/card.dart';
+import 'package:badges/badges.dart' as badges;
 
 class Cardsdetailedscreen extends StatefulWidget {
   const Cardsdetailedscreen({super.key});
@@ -29,17 +31,26 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
             },
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.add_shopping_cart),
-              color: Colors.black,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const shoppingcart(),
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add_shopping_cart),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
           title: const Center(
@@ -107,10 +118,10 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
                   onAddToCart: () {
                     Navigator.push(
                       context,
-                      CupertinoPageRoute(
-                          builder: (context) => const shoppingcart()),
+                      CupertinoPageRoute(builder: (context) => ShoppingCart()),
                     );
                   },
+                  onCartUpdated: () {},
                 ),
               );
             },

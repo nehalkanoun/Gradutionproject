@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/login.dart';
 import 'package:vows/screens/splashscreen.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +23,7 @@ class _signupState extends State<signup> {
   final phonenumbercontroller = TextEditingController();
   Future<void> _registerUser(BuildContext context, String username,
       String password, String phonenumber) async {
-    final url =
-        Uri.parse('http://192.168.0.107:8000/api/auth/registercustomer/');
+    final url = Uri.parse('$backendURL/api/auth/registercustomer/');
     try {
       final body = {
         "username": usernamecontroller.text,
@@ -76,11 +76,10 @@ class _signupState extends State<signup> {
             icon: const Icon(Icons.arrow_back),
             color: Colors.black,
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const SplashScreen()),
-                  (route) => false);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => const SplashScreen()),
+              );
             },
           ),
         ),
@@ -101,10 +100,10 @@ class _signupState extends State<signup> {
                 height: 15,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 90),
+                padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: TextField(
                   controller: usernamecontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(vertical: 4),
                   ),
@@ -139,10 +138,10 @@ class _signupState extends State<signup> {
                 height: 15,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 90),
+                padding: const EdgeInsets.symmetric(horizontal: 90),
                 child: TextField(
                   controller: phonenumbercontroller,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(vertical: 4),
                   ),
@@ -162,7 +161,7 @@ class _signupState extends State<signup> {
                     onChanged: (value) {
                       setState(() {
                         checkbox1 = value!;
-                        checkbox2 = false; // Uncheck the second checkbox
+                        checkbox2 = false;
                       });
                     },
                     shape: const CircleBorder(),
@@ -175,7 +174,7 @@ class _signupState extends State<signup> {
                     onChanged: (value) {
                       setState(() {
                         checkbox2 = value!;
-                        checkbox1 = false; // Uncheck the first checkbox
+                        checkbox1 = false;
                       });
                     },
                     shape: const CircleBorder(),
@@ -204,11 +203,11 @@ class _signupState extends State<signup> {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            content: Text('الرجاء إدخال البيانات'),
+                            content: const Text('الرجاء إدخال البيانات'),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.of(context).pop(),
-                                child: Text('موافق'),
+                                child: const Text('موافق'),
                               ),
                             ],
                           ),
@@ -224,11 +223,11 @@ class _signupState extends State<signup> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: Text('كلمة المرور غير متطابقة'),
+                          content: const Text('كلمة المرور غير متطابقة'),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(),
-                              child: Text('موافق'),
+                              child: const Text('موافق'),
                             ),
                           ],
                         ),

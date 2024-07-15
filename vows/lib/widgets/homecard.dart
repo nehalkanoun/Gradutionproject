@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/shoppingcart.dart';
 
-
-class ProductCard extends StatefulWidget {
+class Homecard extends StatefulWidget {
   final String title;
   final String subtitle;
   final String price;
@@ -13,7 +12,7 @@ class ProductCard extends StatefulWidget {
   final String? productid;
   final VoidCallback onCartUpdated;
 
-  ProductCard({
+  Homecard({
     super.key,
     required this.title,
     required this.subtitle,
@@ -25,10 +24,10 @@ class ProductCard extends StatefulWidget {
   });
 
   @override
-  _ProductCard createState() => _ProductCard();
+  _HomecardState createState() => _HomecardState();
 }
 
-class _ProductCard extends State<ProductCard> {
+class _HomecardState extends State<Homecard> {
   int quantity = 1;
   final quantityController = TextEditingController();
 

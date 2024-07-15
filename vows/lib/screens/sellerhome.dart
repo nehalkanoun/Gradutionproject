@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/addproductseller.dart';
+
 import 'package:vows/screens/editproductseller.dart';
 
 class Sellerhome extends StatelessWidget {
@@ -60,7 +61,7 @@ class Sellerhome extends StatelessWidget {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  CupertinoPageRoute(builder: (context) => const Editproduct()),
+                  CupertinoPageRoute(builder: (context) => EditProductScreen()),
                   (route) => false,
                 );
               },

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/settings.dart';
 import 'package:vows/screens/shoppingcart.dart';
+import 'package:badges/badges.dart' as badges;
 
 class Editaccount extends StatelessWidget {
   const Editaccount({super.key});
@@ -23,17 +25,26 @@ class Editaccount extends StatelessWidget {
             },
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.add_shopping_cart),
-              color: Colors.black,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const shoppingcart(),
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add_shopping_cart),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
           title: const Center(
@@ -68,31 +79,7 @@ class Editaccount extends StatelessWidget {
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.symmetric(vertical: 4),
               ),
-              textAlign: TextAlign.left,
-              keyboardType: TextInputType.text,
-              cursorColor: Colors.black,
-            ),
-          ),
-          const SizedBox(
-            height: 27,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 90),
-            child: Text(
-              "البريد الالكتروني:",
-            ),
-          ),
-          const SizedBox(
-            height: 17,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 90),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(vertical: 4),
-              ),
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.right,
               keyboardType: TextInputType.text,
               cursorColor: Colors.black,
             ),
@@ -116,7 +103,7 @@ class Editaccount extends StatelessWidget {
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.symmetric(vertical: 4),
               ),
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.right,
               keyboardType: TextInputType.text,
               cursorColor: Colors.black,
             ),

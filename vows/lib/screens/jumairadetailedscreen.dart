@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/screens/cart.dart';
 import 'package:vows/screens/foodscreen.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/card.dart';
+import 'package:badges/badges.dart' as badges;
 
 class Jumairadetailedscreen extends StatelessWidget {
   const Jumairadetailedscreen({super.key});
@@ -23,17 +25,26 @@ class Jumairadetailedscreen extends StatelessWidget {
             },
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.add_shopping_cart),
-              color: Colors.black,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const shoppingcart(),
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add_shopping_cart),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
           title: const Center(
@@ -102,9 +113,10 @@ class Jumairadetailedscreen extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const shoppingcart()),
+                            builder: (context) => ShoppingCart()),
                         (route) => false);
                   },
+                  onCartUpdated: () {},
                 ),
               );
             },
