@@ -21,24 +21,12 @@ class Shoppingcartcard extends StatefulWidget {
 class _ShoppingcartcardState extends State<Shoppingcartcard> {
   int quantity = 1;
 
-  void _increaseQuantity() {
-    setState(() {
-      quantity++;
-    });
-  }
-
-  void _decreaseQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 185,
         maxHeight: 130,
       ),

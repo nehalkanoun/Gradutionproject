@@ -33,20 +33,16 @@ class _LoginState extends State<Login> {
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        // ignore: avoid_print
         print(responseData);
 
         Navigator.push(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
-        // ignore: avoid_print
         print('Login failed. Status code: ${response.body}');
       }
     } catch (e) {
-      // ignore: avoid_print
       print('Error: $e');
     }
   }
