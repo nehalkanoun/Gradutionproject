@@ -91,7 +91,9 @@ class _VendorsscreenState extends State<Vendorsscreen> {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(),
+                      builder: (context) => const ShoppingCart(
+                        customerId: '',
+                      ),
                     ),
                   );
                 },
@@ -99,12 +101,6 @@ class _VendorsscreenState extends State<Vendorsscreen> {
             ),
           ),
         ],
-        title: const Center(
-          child: Text(
-            "الصفحة الرئيسية",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
       ),
       body: FutureBuilder<List<Vendor>>(
         future: VendorInfo.fetchVendorInfo(),
@@ -145,12 +141,12 @@ class VendorContainer extends StatelessWidget {
   final String phonenumber;
 
   const VendorContainer({
-    Key? key,
+    super.key,
     required this.username,
     required this.details,
     required this.location,
     required this.phonenumber,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

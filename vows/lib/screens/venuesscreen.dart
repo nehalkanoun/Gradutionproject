@@ -10,8 +10,8 @@ import 'package:vows/screens/venuesdetailedscreen.dart';
 import 'package:vows/widgets/maincard.dart';
 import 'package:badges/badges.dart' as badges;
 
-class venues extends StatelessWidget {
-  const venues({super.key});
+class Venues extends StatelessWidget {
+  const Venues({super.key});
 
   void initState() {
     Timer(const Duration(seconds: 3), () {});
@@ -39,7 +39,7 @@ class venues extends StatelessWidget {
             child: badges.Badge(
               badgeContent: Text(
                 cartItems.length.toString(),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               child: IconButton(
                 icon: const Icon(Icons.add_shopping_cart),
@@ -48,7 +48,7 @@ class venues extends StatelessWidget {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(),
+                      builder: (context) => const ShoppingCart(customerId: '',),
                     ),
                   );
                 },
@@ -65,20 +65,20 @@ class venues extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
               ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              title: 'قاعة الاميره',
+              title: 'Alamira',
               location: 'فينيسيا',
               cardText: 'This is the text for the first card.',
               onPressed: () {
@@ -90,23 +90,6 @@ class venues extends StatelessWidget {
                 );
               },
               imageUrl: 'assets/alamiravenue.jpg',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Maincards(
-              title: 'قاعة فينيسيا1',
-              location: 'فينيسيا',
-              cardText: 'This is the text for the second card.',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const VenuesDetailedScreen(),
-                  ),
-                );
-              },
-              imageUrl: 'assets/venesia1.jpg',
             ),
           ),
         ],

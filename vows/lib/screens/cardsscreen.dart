@@ -38,7 +38,7 @@ class Cards extends StatelessWidget {
             child: badges.Badge(
               badgeContent: Text(
                 cartItems.length.toString(),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               child: IconButton(
                 icon: const Icon(Icons.add_shopping_cart),
@@ -47,7 +47,7 @@ class Cards extends StatelessWidget {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(),
+                      builder: (context) => const ShoppingCart(customerId: '',),
                     ),
                   );
                 },
@@ -77,7 +77,7 @@ class Cards extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              title: 'الفخامه الملكية',
+              title: 'Alfakama cards',
               location: 'بلعون',
               cardText: 'This is the text for the first card.',
               onPressed: () {

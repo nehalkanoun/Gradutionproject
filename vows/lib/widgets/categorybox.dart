@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Categorybox extends StatelessWidget {
@@ -6,7 +5,7 @@ class Categorybox extends StatelessWidget {
   final ImageProvider image;
   final VoidCallback onPressed;
 
-  Categorybox({
+  const Categorybox({
     required this.text,
     required this.image,
     required this.onPressed,

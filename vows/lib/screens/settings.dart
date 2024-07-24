@@ -71,7 +71,7 @@ class _SettingsState extends State<Settings> {
                 children: [
                   Text(
                     username ?? 'hyyhh',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style: const TextStyle(fontSize: 20, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 15,
@@ -274,6 +274,7 @@ class _SettingsState extends State<Settings> {
                           print(
                               'Logout successful: ${responseData['message']}');
                           Navigator.pushReplacement(
+                            // ignore: use_build_context_synchronously
                             context,
                             CupertinoPageRoute(
                                 builder: (context) => const Login()),

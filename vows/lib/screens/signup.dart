@@ -6,14 +6,14 @@ import 'package:vows/screens/splashscreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class signup extends StatefulWidget {
-  const signup({Key? key}) : super(key: key);
+class Signup extends StatefulWidget {
+  const Signup({Key? key}) : super(key: key);
 
   @override
-  State<signup> createState() => _signupState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _signupState extends State<signup> {
+class _SignupState extends State<Signup> {
   bool isPasswordVisible = false;
   bool checkbox1 = false;
   bool checkbox2 = false;
@@ -40,6 +40,7 @@ class _signupState extends State<signup> {
         print(responseData);
 
         Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const Login()),
         );
@@ -60,6 +61,7 @@ class _signupState extends State<signup> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -83,7 +85,7 @@ class _signupState extends State<signup> {
             },
           ),
         ),
-        body: Center(
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -307,7 +309,7 @@ class MyPasswordField extends StatelessWidget {
           height: 15,
         ),
         const Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 90),
+          padding: EdgeInsets.symmetric(horizontal: 90),
           child: Text(
             "تأكيد كلمة المرور:",
           ),

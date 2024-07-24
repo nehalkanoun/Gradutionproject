@@ -30,7 +30,7 @@ class Aboutus extends StatelessWidget {
               child: badges.Badge(
                 badgeContent: Text(
                   cartItems.length.toString(),
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
                 child: IconButton(
                   icon: const Icon(Icons.add_shopping_cart),
@@ -39,7 +39,7 @@ class Aboutus extends StatelessWidget {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(),
+                        builder: (context) => const ShoppingCart(customerId: '',),
                       ),
                     );
                   },

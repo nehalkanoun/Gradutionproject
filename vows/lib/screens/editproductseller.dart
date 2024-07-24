@@ -7,6 +7,8 @@ import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/sellerhome.dart';
 
 class EditProductScreen extends StatefulWidget {
+  const EditProductScreen({super.key});
+
   @override
   _EditProductScreenState createState() => _EditProductScreenState();
 }
@@ -54,7 +56,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
     if (response.statusCode == 200) {
       print(response.body);
-      // Update local list with new values
       setState(() {
         _products[_editingIndex]['name'] = _productNameController.text;
         _products[_editingIndex]['price'] = double.parse(_priceController.text);
@@ -63,6 +64,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
     } else {
       print('Failed to update product. Status code: ${response.body}');
+    }
+  }
+
+  Future<void> _deleteProduct(String productId, int index) async {
+    final url = Uri.parse('$backendURL/api/products/$productId');
+    final response = await http.delete(url);
+
+    if (response.statusCode == 200) {
+      setState(() {
+        _products.removeAt(index);
+      });
+    } else {
+      print('Failed to delete product. Status code: ${response.body}');
     }
   }
 
@@ -98,6 +112,33 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
+  void _showDeleteDialog(String productId, int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Delete Product'),
+          content: Text('Are you sure you want to delete this product?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                _deleteProduct(productId, index);
+                Navigator.of(context).pop();
+              },
+              child: Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,8 +171,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
           return GestureDetector(
             onTap: () => _toggleEditing(index),
             child: SizedBox(
-              width: 600,
-              height: 190,
+              width: 250,
+              height: 240,
               child: Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
                 child: Card(
@@ -191,6 +232,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             ),
                           ],
                         ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.delete,
+                                color: Color.fromARGB(154, 18, 18, 18)),
+                            onPressed: () => _showDeleteDialog(
+                                _products[index]['id'].toString(), index),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

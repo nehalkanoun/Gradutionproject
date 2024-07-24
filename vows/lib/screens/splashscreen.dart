@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vows/screens/customersscreen.dart';
+import 'package:vows/screens/home.dart';
 
 import 'package:vows/screens/login.dart';
+
+import 'package:vows/screens/shoppingcart.dart';
+import 'package:vows/screens/signup.dart';
+
 import 'package:vows/screens/vendorsscreen.dart';
 
 class SplashScreen extends StatelessWidget {

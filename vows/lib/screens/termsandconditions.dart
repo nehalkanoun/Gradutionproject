@@ -30,7 +30,7 @@ class Termsandconditions extends StatelessWidget {
             child: badges.Badge(
               badgeContent: Text(
                 cartItems.length.toString(),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               child: IconButton(
                 icon: const Icon(Icons.add_shopping_cart),
@@ -39,7 +39,7 @@ class Termsandconditions extends StatelessWidget {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(),
+                      builder: (context) => const ShoppingCart(customerId: '',),
                     ),
                   );
                 },
@@ -57,9 +57,9 @@ class Termsandconditions extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.only(right: 20, left: 20),
+          padding: EdgeInsets.only(right: 20, left: 20),
           child: Text(
               "Acceptance of Terms : By downloading, accessing, or using this mobile app the App, you agree to be bound by the following terms and conditions. If you do not agree to these terms, please refrain from using the App"
               "User Behavior and Access: You agree to use the App in compliance with applicable laws and regulations. You shall not engage in any activities that may disrupt or interfere with the functioning of the App or infringe upon the rights of others"

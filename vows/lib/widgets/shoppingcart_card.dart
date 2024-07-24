@@ -8,7 +8,7 @@ class Shoppingcartcard extends StatefulWidget {
   final int? amount;
   final VoidCallback? onpressed;
 
-  Shoppingcartcard({
+  const Shoppingcartcard({
     this.sellerName,
     this.productName,
     this.price,
@@ -18,6 +18,7 @@ class Shoppingcartcard extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ShoppingcartcardState createState() => _ShoppingcartcardState();
 }
 
@@ -60,7 +61,7 @@ class _ShoppingcartcardState extends State<Shoppingcartcard> {
                 image: DecorationImage(
                   image: widget.imageUrl != null
                       ? AssetImage(widget.imageUrl!)
-                      : AssetImage('assets/default.jpg'),
+                      : const AssetImage('assets/default.jpg'),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(20.0),

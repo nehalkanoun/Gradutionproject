@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Maincards extends StatelessWidget {
@@ -53,8 +52,6 @@ class Maincards extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
-
-                 
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -68,7 +65,6 @@ class Maincards extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                     
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Row(
@@ -88,7 +84,7 @@ class Maincards extends StatelessWidget {
                               ],
                             ),
                           ),
-                    
+                          // ignore: sized_box_for_whitespace
                           Container(
                             height: 25,
                             child: ElevatedButton(

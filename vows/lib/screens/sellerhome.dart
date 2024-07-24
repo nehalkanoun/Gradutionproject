@@ -61,7 +61,7 @@ class Sellerhome extends StatelessWidget {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  CupertinoPageRoute(builder: (context) => EditProductScreen()),
+                  CupertinoPageRoute(builder: (context) => const EditProductScreen()),
                   (route) => false,
                 );
               },

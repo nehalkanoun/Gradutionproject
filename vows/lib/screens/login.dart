@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/helpers/consts.dart';
+import 'package:vows/screens/adminhome.dart';
 import 'package:vows/screens/forgetpassword.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/sellerhome.dart';
@@ -45,11 +46,12 @@ class _LoginState extends State<Login> {
         await prefs.setInt('cartID', responseData['cart_id']);
         await prefs.setString('token', responseData['token']);
         Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
-        print('Login failed. Status code: ${response.body}');
+        print('Login  customer failed. Status code: ${response.body}');
       }
     } catch (e) {
       print('Error: $e');
@@ -58,7 +60,7 @@ class _LoginState extends State<Login> {
 
   Future<void> _loginseller(
       BuildContext context, String username, String password) async {
-    final url = Uri.parse('http://127.0.0.1:8000/api/auth/loginseller/');
+    final url = Uri.parse('$backendURL/api/auth/loginseller/');
     try {
       final body = {
         "username": usernamecontroller.text,
@@ -76,11 +78,44 @@ class _LoginState extends State<Login> {
         await prefs.setInt('id', responseData['id']);
 
         Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const Sellerhome()),
         );
       } else {
         print('Login seller failed. Status code: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> _loginadmin(
+      BuildContext context, String username, String password) async {
+    final url = Uri.parse('$backendURL/api/auth/loginadmin/');
+    try {
+      final body = {
+        "username": usernamecontroller.text,
+        "password": passwordcontroller.text,
+      };
+      final response = await http.post(url,
+          body: jsonEncode(body),
+          headers: {'Content-Type': 'application/json'});
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        print(responseData);
+        // final prefs = await SharedPreferences.getInstance();
+        // await prefs.setString('username', usernamecontroller.text);
+        // await prefs.setString('token', responseData['token']);
+        // await prefs.setInt('id', responseData['id']);
+
+        Navigator.push(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const Adminhome()),
+        );
+      } else {
+        print('Login admin failed. Status code: ${response.body}');
       }
     } catch (e) {
       print('Error: $e');
@@ -112,7 +147,7 @@ class _LoginState extends State<Login> {
             },
           ),
         ),
-        body: Center(
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -186,6 +221,8 @@ class _LoginState extends State<Login> {
                         ),
                       );
                     } else {
+                      _loginadmin(context, usernamecontroller.text,
+                          passwordcontroller.text);
                       _logincustomer(context, usernamecontroller.text,
                           passwordcontroller.text);
                       _loginseller(context, usernamecontroller.text,
@@ -200,29 +237,6 @@ class _LoginState extends State<Login> {
               ),
               const SizedBox(
                 height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 90),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const Forgetpassword()),
-                        (route) => false);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "هل نسيت كلمة المرور؟",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

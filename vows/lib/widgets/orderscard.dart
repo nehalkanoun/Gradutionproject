@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Orderscard extends StatefulWidget {
@@ -21,13 +20,15 @@ class Orderscard extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _Orderscard createState() => _Orderscard();
 }
 
 class _Orderscard extends State<Orderscard> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 100, maxHeight: 150),
+      constraints: const BoxConstraints(maxWidth: 100, maxHeight: 150),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
@@ -64,7 +65,7 @@ class _Orderscard extends State<Orderscard> {
                 children: [
                   Text(
                     widget.id,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -72,7 +73,7 @@ class _Orderscard extends State<Orderscard> {
                   ),
                   Text(
                     widget.description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -80,7 +81,7 @@ class _Orderscard extends State<Orderscard> {
                   ),
                 ],
               ),
-              SizedBox(height: 5.0),
+              const SizedBox(height: 5.0),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
@@ -88,22 +89,22 @@ class _Orderscard extends State<Orderscard> {
                   children: [
                     Text(
                       widget.name,
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
               ),
-              Text(widget.number, style: TextStyle(fontSize: 12)),
+              Text(widget.number, style: const TextStyle(fontSize: 12)),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   widget.amount,
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ),
               Text(
                 widget.price,
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
             ]),
           ))

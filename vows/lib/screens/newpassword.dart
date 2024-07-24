@@ -93,6 +93,7 @@ class Newpassword extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.center,
+                  // ignore: sized_box_for_whitespace
                   child: Container(
                     width: 200,
                     child: ElevatedButton(

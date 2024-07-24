@@ -1,3 +1,2 @@
-import 'package:flutter/material.dart';
 
-String backendURL = 'http://192.168.0.104:2002/';
+String backendURL = 'http://127.0.0.1:8000';

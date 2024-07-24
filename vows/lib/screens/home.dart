@@ -8,8 +8,10 @@ import 'package:vows/screens/foodscreen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:badges/badges.dart' as badges;
+import 'package:vows/screens/settings.dart';
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/screens/vendorsscreen.dart';
+import 'package:vows/screens/venuesscreen.dart';
 import 'package:vows/widgets/homecard.dart';
 
 class Randomproducts {
@@ -26,6 +28,7 @@ class Randomproducts {
               })
           .toList();
     } else {
+      print(response.body);
       throw Exception('Failed to fetch random products');
     }
   }
@@ -45,7 +48,7 @@ class Home extends StatelessWidget {
               child: badges.Badge(
                 badgeContent: Text(
                   cartItems.length.toString(),
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
                 child: IconButton(
                   icon: const Icon(Icons.add_shopping_cart),
@@ -54,7 +57,9 @@ class Home extends StatelessWidget {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(),
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
                       ),
                     );
                   },
@@ -177,14 +182,16 @@ class Home extends StatelessWidget {
                         child: Homecard(
                           title: product['title'],
                           subtitle: product['subtitle'],
-                          price: product['price'],
+                          price: double.parse(product['price']),
                           imageUrl:
                               "assets/${product['subtitle']}-${product['title']}.jpg",
                           onAddToCart: () {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => const ShoppingCart()),
+                                  builder: (context) => const ShoppingCart(
+                                        customerId: '',
+                                      )),
                             );
                           },
                           onCartUpdated: () {},

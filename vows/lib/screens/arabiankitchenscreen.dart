@@ -36,7 +36,7 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
               child: badges.Badge(
                 badgeContent: Text(
                   cartItems.length.toString(),
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
                 child: IconButton(
                   icon: const Icon(Icons.add_shopping_cart),
@@ -45,7 +45,7 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(),
+                        builder: (context) => const ShoppingCart(customerId: '',),
                       ),
                     );
                   },
@@ -60,62 +60,62 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
             ),
           ),
         ),
-        body: Expanded(
-          child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              String title;
-              String subtitle;
-              String price;
-              String imageUrl;
+        body: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            String title;
+            String subtitle;
+            String priceString;
+            String imageUrl;
+            double price;
 
-              switch (index) {
-                case 0:
-                  title = ' المطبخ العربي ';
-                  subtitle = 'مكرونة باللحم بالمكسرات';
-                  price = '6د.ل';
-                  imageUrl = 'assets/arabiankitchenpasta.jpg';
-                  break;
-                case 1:
-                  title = ' المطبخ العربي ';
-                  subtitle = '  طبق رئيسي';
-                  price = '10د.ل';
-                  imageUrl = 'assets/araibiankitchenmaindish.jpg';
-                  break;
-                case 2:
-                  title = ' المطبخ العربي ';
-                  subtitle = 'طبق رئيسي';
-                  price = '8د.ل';
-                  imageUrl = 'assets/araibiankitchenmaindish2.jpg';
-                  break;
+            switch (index) {
+              case 0:
+                title = ' Araibian kitchen';
+                subtitle = 'مكرونة باللحم والمكسرات';
+                priceString = '30';
+                imageUrl = 'assets/arabiankitchenpasta.jpg';
+                break;
+              case 1:
+                title = ' Araibian kitchen';
+                subtitle = '  طبق رئيسي';
+                priceString = '20';
+                imageUrl = 'assets/وجبه رئيسية-Araibian kitchen.jpg';
+                break;
+              case 2:
+                title = 'Araibian kitchen';
+                subtitle = 'طبق رئيسي';
+                priceString = '25';
+                imageUrl = 'assets/araibiankitchenmaindish2.jpg';
+                break;
 
-                default:
-                  title = 'الفخامه الملكيه';
-                  subtitle = 'كرت';
-                  price = '6د.ل';
-                  imageUrl = 'https://example.com/default.jpg';
-              }
-
-              return Padding(
-                padding:
-                    const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
-                child: ProductCard(
-                  title: title,
-                  subtitle: subtitle,
-                  price: price,
-                  imageUrl: imageUrl,
-                  onAddToCart: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ShoppingCart()),
-                        (route) => false);
-                  },
-                  onCartUpdated: () {},
-                ),
-              );
-            },
-          ),
+              default:
+                title = 'Araibian kitchen ';
+                subtitle = '//';
+                priceString = '//';
+                imageUrl = 'https://example.com/default.jpg';
+            }
+            price = double.parse(priceString);
+            return Padding(
+              padding:
+                  const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
+              child: ProductCard(
+                title: title,
+                subtitle: subtitle,
+                price: price,
+                imageUrl: imageUrl,
+                onAddToCart: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
+                      (route) => false);
+                },
+                onCartUpdated: () {
+                  setState(() {});
+                },
+              ),
+            );
+          },
         ));
   }
 }

@@ -8,9 +8,14 @@ import 'package:badges/badges.dart' as badges;
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/widgets/maincard.dart';
 
-class Food extends StatelessWidget {
+class Food extends StatefulWidget {
   const Food({super.key});
 
+  @override
+  State<Food> createState() => _FoodState();
+}
+
+class _FoodState extends State<Food> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +38,7 @@ class Food extends StatelessWidget {
             child: badges.Badge(
               badgeContent: Text(
                 cartItems.length.toString(),
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               child: IconButton(
                 icon: const Icon(Icons.add_shopping_cart),
@@ -42,7 +47,7 @@ class Food extends StatelessWidget {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(),
+                      builder: (context) => const ShoppingCart(customerId: '',),
                     ),
                   );
                 },
@@ -72,7 +77,7 @@ class Food extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              title: 'جميره للتموين',
+              title: 'Jumeira Catering',
               location: 'الهواري',
               cardText: 'This is the text for the first card.',
               onPressed: () {
@@ -89,7 +94,7 @@ class Food extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Maincards(
-              title: 'المطبخ العربي',
+              title: 'Araibian kitchen',
               location: 'الرحبه',
               cardText: 'This is the text for the second card.',
               onPressed: () {

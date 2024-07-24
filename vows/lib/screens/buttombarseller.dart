@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:vows/screens/home.dart';
+import 'package:vows/screens/ordersscreen.dart';
 import 'package:vows/screens/settings.dart';
-import 'package:vows/screens/vendorsscreen.dart';
 
-class Bottomnavigationbar extends StatefulWidget {
+class Bottomnavigationbarseller extends StatefulWidget {
   final Widget child;
-  const Bottomnavigationbar({required this.child, Key? key}) : super(key: key);
+  const Bottomnavigationbarseller({required this.child, super.key});
 
   @override
-  State<Bottomnavigationbar> createState() => _BottomnavigationbarState();
+  State<Bottomnavigationbarseller> createState() =>
+      _BottomnavigationbarsellerState();
 }
 
-class _BottomnavigationbarState extends State<Bottomnavigationbar> {
+class _BottomnavigationbarsellerState extends State<Bottomnavigationbarseller> {
   int _selectedIndex = 0;
   static const List<Widget> _pages = <Widget>[
     Home(),
-    Vendorsscreen(),
+    Ordersscreen(
+      sellerName: '',
+    ),
     Settings(),
   ];
 
@@ -45,10 +48,10 @@ class _BottomnavigationbarState extends State<Bottomnavigationbar> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/vendors.png"),
+              AssetImage("assets/orderimagee.png"),
               color: Colors.black,
             ),
-            label: ('الموردين'),
+            label: ('الطلبات'),
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(

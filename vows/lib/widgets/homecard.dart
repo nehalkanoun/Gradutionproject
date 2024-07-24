@@ -6,7 +6,7 @@ import 'package:vows/screens/shoppingcart.dart';
 class Homecard extends StatefulWidget {
   final String title;
   final String subtitle;
-  final String price;
+  final double price;
   final String imageUrl;
   final VoidCallback onAddToCart;
   final String? productid;
@@ -54,10 +54,11 @@ class _HomecardState extends State<Homecard> {
 
     Navigator.push(
       context,
-      CupertinoPageRoute(builder: (context) => const ShoppingCart()),
+      CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
@@ -127,7 +128,8 @@ class _HomecardState extends State<Homecard> {
                             color: Color.fromARGB(255, 0, 0, 0),
                           )),
                       const SizedBox(width: 2),
-                      Text(widget.price, style: const TextStyle(fontSize: 14)),
+                      Text(widget.price.toString(),
+                          style: const TextStyle(fontSize: 14)),
                     ],
                   ),
                   Row(
