@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vows/screens/customersscreen.dart';
-import 'package:vows/screens/home.dart';
 
 import 'package:vows/screens/login.dart';
-
-import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/screens/signup.dart';
-
-import 'package:vows/screens/vendorsscreen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -38,7 +32,7 @@ class SplashScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => Vendorsscreen()),
+                    CupertinoPageRoute(builder: (context) => Signup()),
                   );
                 },
                 child: const Text(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/adminhome.dart';
-import 'package:vows/screens/forgetpassword.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/sellerhome.dart';
 import 'package:vows/screens/splashscreen.dart';

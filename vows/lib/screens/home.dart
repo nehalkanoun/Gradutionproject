@@ -8,10 +8,10 @@ import 'package:vows/screens/foodscreen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:badges/badges.dart' as badges;
-import 'package:vows/screens/settings.dart';
+
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:vows/screens/vendorsscreen.dart';
-import 'package:vows/screens/venuesscreen.dart';
+
 import 'package:vows/widgets/homecard.dart';
 
 class Randomproducts {
