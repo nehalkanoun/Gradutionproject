@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/cart.dart';
-import 'package:vows/screens/home.dart';
+
 import 'package:vows/screens/shoppingcart.dart';
 import 'package:badges/badges.dart' as badges;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vows/widgets/buttombarcus.dart';
 
 class Vendorsscreen extends StatefulWidget {
   const Vendorsscreen({super.key});
@@ -27,7 +28,6 @@ class VendorInfo {
       Uri.parse('$backendURL/api/sellers/'),
       headers: headers,
     );
-
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body)['data'] as List<dynamic>;
       return jsonData.map((seller) => Vendor.fromJson(seller)).toList();
@@ -63,72 +63,74 @@ class Vendor {
 class _VendorsscreenState extends State<Vendorsscreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 101, 143, 193),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              CupertinoPageRoute(builder: (context) => const Home()),
-              (route) => false,
-            );
-          },
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: badges.Badge(
-              badgeContent: Text(
-                cartItems.length.toString(),
-                style: const TextStyle(color: Colors.black),
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.add_shopping_cart),
-                color: Colors.black,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(
-                        customerId: '',
-                      ),
-                    ),
-                  );
-                },
+    return Bottomnavigationbar(
+      selectedIndex: 1,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+          title: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                "الموردين",
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
-        ],
-      ),
-      body: FutureBuilder<List<Vendor>>(
-        future: VendorInfo.fetchVendorInfo(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            final sellers = snapshot.data!;
-            return ListView.builder(
-              itemCount: sellers.length,
-              itemBuilder: (context, index) {
-                final seller = sellers[index];
-                return Padding(
-                  padding:
-                      const EdgeInsets.only(top: 20.0, left: 12.0, right: 12.0),
-                  child: VendorContainer(
-                    username: seller.username,
-                    details: seller.details,
-                    phonenumber: seller.phonenumber,
-                    location: seller.location,
-                  ),
-                );
-              },
-            );
-          }
-        },
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: badges.Badge(
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: const TextStyle(color: Colors.black),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add_shopping_cart),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: FutureBuilder<List<Vendor>>(
+          future: VendorInfo.fetchVendorInfo(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              final sellers = snapshot.data!;
+              return ListView.builder(
+                itemCount: sellers.length,
+                itemBuilder: (context, index) {
+                  final seller = sellers[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 12.0, right: 12.0),
+                    child: VendorContainer(
+                      username: seller.username,
+                      details: seller.details,
+                      phonenumber: seller.phonenumber,
+                      location: seller.location,
+                    ),
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }

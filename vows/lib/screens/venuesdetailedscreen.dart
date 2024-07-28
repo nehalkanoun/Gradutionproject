@@ -16,7 +16,7 @@ class VenuesDetailedScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Venues(),
@@ -39,7 +39,9 @@ class VenuesDetailedScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(customerId: '',),
+                      builder: (context) => const ShoppingCart(
+                        customerId: '',
+                      ),
                     ),
                   );
                 },
@@ -65,8 +67,6 @@ class VenuesDetailedScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Image.asset('assets/image2.jpg'),
-            const SizedBox(height: 20),
-            Image.asset('assets/image3.jpg'),
           ],
         ),
       ),

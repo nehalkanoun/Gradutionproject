@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/sellerhome.dart';
+import 'package:vows/widgets/buttombarseller.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key});
@@ -141,115 +142,118 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 101, 143, 193),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => const Sellerhome(),
+    return Bottomnavigationbarseller(
+      selectedIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => const Sellerhome(),
+                ),
+              );
+            },
+          ),
+          title: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Text(
+                "تعديل منتج",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+        body: ListView.builder(
+          itemCount: _products.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => _toggleEditing(index),
+              child: SizedBox(
+                width: 250,
+                height: 240,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
+                  child: Card(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (_isEditing && _editingIndex == index)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: TextField(
+                              controller: _productNameController,
+                              textAlign: TextAlign.right,
+                            ),
+                          )
+                        else
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, top: 10),
+                            child: Text(_products[index]['name']),
+                          ),
+                        const SizedBox(height: 8.0),
+                        if (_isEditing && _editingIndex == index)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: TextField(
+                              controller: _priceController,
+                              textAlign: TextAlign.right,
+                              keyboardType: TextInputType.number,
+                            ),
+                          )
+                        else
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, top: 10),
+                            child: Text(
+                                "${_products[index]['price'].toStringAsFixed(2)}"),
+                          ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        if (_isEditing && _editingIndex == index)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () => _toggleEditing(index),
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              const SizedBox(width: 8.0),
+                              ElevatedButton(
+                                onPressed: _saveChanges,
+                                child: const Text(
+                                  "Save",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.delete,
+                                  color: Color.fromARGB(154, 18, 18, 18)),
+                              onPressed: () => _showDeleteDialog(
+                                  _products[index]['id'].toString(), index),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             );
           },
         ),
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Text(
-              "تعديل منتج",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: _products.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => _toggleEditing(index),
-            child: SizedBox(
-              width: 250,
-              height: 240,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
-                child: Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (_isEditing && _editingIndex == index)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20, left: 20),
-                          child: TextField(
-                            controller: _productNameController,
-                            textAlign: TextAlign.right,
-                          ),
-                        )
-                      else
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20, top: 10),
-                          child: Text(_products[index]['name']),
-                        ),
-                      const SizedBox(height: 8.0),
-                      if (_isEditing && _editingIndex == index)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20, left: 20),
-                          child: TextField(
-                            controller: _priceController,
-                            textAlign: TextAlign.right,
-                            keyboardType: TextInputType.number,
-                          ),
-                        )
-                      else
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20, top: 10),
-                          child: Text(
-                              "${_products[index]['price'].toStringAsFixed(2)}"),
-                        ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      if (_isEditing && _editingIndex == index)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () => _toggleEditing(index),
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            const SizedBox(width: 8.0),
-                            ElevatedButton(
-                              onPressed: _saveChanges,
-                              child: const Text(
-                                "Save",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ],
-                        ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.delete,
-                                color: Color.fromARGB(154, 18, 18, 18)),
-                            onPressed: () => _showDeleteDialog(
-                                _products[index]['id'].toString(), index),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }

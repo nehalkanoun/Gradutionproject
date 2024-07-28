@@ -16,7 +16,7 @@ class Changepassword extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(
+              Navigator.pop(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Settings(),
@@ -39,7 +39,9 @@ class Changepassword extends StatelessWidget {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(customerId: '',),
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
                       ),
                     );
                   },

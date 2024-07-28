@@ -22,7 +22,7 @@ class _VigoscreenState extends State<Vigoscreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Drinks(),
@@ -45,7 +45,9 @@ class _VigoscreenState extends State<Vigoscreen> {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(customerId: '',),
+                      builder: (context) => const ShoppingCart(
+                        customerId: '',
+                      ),
                     ),
                   );
                 },
@@ -61,34 +63,27 @@ class _VigoscreenState extends State<Vigoscreen> {
         ),
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: 2,
         itemBuilder: (context, index) {
           String title;
           String subtitle;
           String priceString;
           String imageUrl;
           double price;
-          
 
           switch (index) {
             case 0:
-              title = 'vigo';
-              subtitle = 'سان سابيستيان';
-              priceString = '9';
-              imageUrl = 'assets/سان سابيستيان-vigo.jpg';
-              break;
-            case 1:
               title = 'vigo';
               subtitle = 'موهيتو بلو';
               priceString = '10';
               imageUrl = 'assets/موهيتو بلو-vigo.jpg';
               break;
 
-            case 2:
+            case 1:
               title = 'vigo';
               subtitle = 'عصير برتقال';
               priceString = '6';
-              imageUrl = 'assets/orangejuice.jpg';
+              imageUrl = 'assets/عصير البرتقال-Vigo.jpg';
               break;
 
             default:
@@ -111,7 +106,9 @@ class _VigoscreenState extends State<Vigoscreen> {
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => const ShoppingCart(customerId: '',)),
+                      builder: (context) => const ShoppingCart(
+                            customerId: '',
+                          )),
                 );
               },
               onCartUpdated: () {

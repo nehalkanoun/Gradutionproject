@@ -22,7 +22,7 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(
+              Navigator.pop(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Food(),
@@ -45,7 +45,9 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(customerId: '',),
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
                       ),
                     );
                   },
@@ -61,7 +63,7 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
           ),
         ),
         body: ListView.builder(
-          itemCount: 3,
+          itemCount: 2,
           itemBuilder: (context, index) {
             String title;
             String subtitle;
@@ -72,17 +74,12 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
             switch (index) {
               case 0:
                 title = ' Araibian kitchen';
-                subtitle = 'مكرونة باللحم والمكسرات';
+                subtitle = 'مكرونة بالخلطه';
                 priceString = '30';
                 imageUrl = 'assets/arabiankitchenpasta.jpg';
                 break;
+
               case 1:
-                title = ' Araibian kitchen';
-                subtitle = '  طبق رئيسي';
-                priceString = '20';
-                imageUrl = 'assets/وجبه رئيسية-Araibian kitchen.jpg';
-                break;
-              case 2:
                 title = 'Araibian kitchen';
                 subtitle = 'طبق رئيسي';
                 priceString = '25';
@@ -107,7 +104,10 @@ class _ArabiankitchenscreenState extends State<Arabiankitchenscreen> {
                 onAddToCart: () {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
+                      CupertinoPageRoute(
+                          builder: (context) => const ShoppingCart(
+                                customerId: '',
+                              )),
                       (route) => false);
                 },
                 onCartUpdated: () {

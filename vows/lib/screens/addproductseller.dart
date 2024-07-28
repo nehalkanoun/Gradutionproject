@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:permission_handler/permission_handler.dart'; // Import permission_handler
 
 import 'package:vows/screens/sellerhome.dart';
+import 'package:vows/widgets/buttombarseller.dart';
 
 class Addproduct extends StatefulWidget {
   const Addproduct({super.key});
@@ -59,7 +60,8 @@ class _AddproductState extends State<Addproduct> {
 
     if (_productName.isEmpty || _productPrice.isEmpty || _imageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all fields and select an image.')),
+        const SnackBar(
+            content: Text('Please fill all fields and select an image.')),
       );
       return;
     }
@@ -91,155 +93,159 @@ class _AddproductState extends State<Addproduct> {
     } else {
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to add product. Please try again.')),
+        const SnackBar(
+            content: Text('Failed to add product. Please try again.')),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 101, 143, 193),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => const Sellerhome(),
+    return Bottomnavigationbarseller(
+      selectedIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => const Sellerhome(),
+                ),
+              );
+            },
+          ),
+          title: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Text(
+                "  اضافة منتج",
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-        ),
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Text(
-              "  اضافة منتج",
-              style: TextStyle(color: Colors.white),
             ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 430),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: GestureDetector(
-                            onTap: _pickImage,
-                            child: _imageFile != null
-                                ? Image.file(_imageFile!, fit: BoxFit.cover)
-                                : Image.asset(
-                                    'assets/addimage.png',
-                                    fit: BoxFit.cover,
-                                  ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 16, right: 16, top: 16, bottom: 430),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: GestureDetector(
+                              onTap: _pickImage,
+                              child: _imageFile != null
+                                  ? Image.file(_imageFile!, fit: BoxFit.cover)
+                                  : Image.asset(
+                                      'assets/addimage.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 5.0),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Text(
-                              'كافي فيقو',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            const SizedBox(height: 2.0),
-                            TextField(
-                              onChanged: (value) {
-                                setState(() {
-                                  _productName = value;
-                                });
-                              },
-                              textAlign: TextAlign.right,
-                              textDirection: TextDirection.rtl,
-                              decoration: const InputDecoration(
-                                hintText: 'اسم الصنف',
-                                hintTextDirection: TextDirection.rtl,
-                                hintStyle: TextStyle(fontSize: 14.0),
-                                contentPadding: EdgeInsets.only(right: 10.0),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                            TextField(
-                              onChanged: (value) {
-                                setState(() {
-                                  _productPrice = value;
-                                });
-                              },
-                              textAlign: TextAlign.right,
-                              textDirection: TextDirection.rtl,
-                              cursorColor: Colors.black,
-                              decoration: const InputDecoration(
-                                hintText: 'السعر',
-                                hintTextDirection: TextDirection.rtl,
-                                hintStyle: TextStyle(fontSize: 14.0),
-                                contentPadding: EdgeInsets.only(right: 10.0),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                            const SizedBox(height: 2.0),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 101, 143, 193),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 32.0,
-                                  vertical: 16.0,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              onPressed: _saveProduct,
-                              child: const Text(
-                                'حفظ',
+                        const SizedBox(height: 5.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text(
+                                'المطبخ العربي',
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 10.0,
+                                  fontSize: 16.0,
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 2.0),
+                              TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    _productName = value;
+                                  });
+                                },
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                                decoration: const InputDecoration(
+                                  hintText: 'اسم الصنف',
+                                  hintTextDirection: TextDirection.rtl,
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  contentPadding: EdgeInsets.only(right: 10.0),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                              TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    _productPrice = value;
+                                  });
+                                },
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                                cursorColor: Colors.black,
+                                decoration: const InputDecoration(
+                                  hintText: 'السعر',
+                                  hintTextDirection: TextDirection.rtl,
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  contentPadding: EdgeInsets.only(right: 10.0),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                              const SizedBox(height: 2.0),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 101, 143, 193),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 32.0,
+                                    vertical: 16.0,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                onPressed: _saveProduct,
+                                child: const Text(
+                                  'حفظ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

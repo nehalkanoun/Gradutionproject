@@ -22,7 +22,7 @@ class _JumairadetailedscreenState extends State<Jumairadetailedscreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(
+              Navigator.pop(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Food(),
@@ -88,7 +88,7 @@ class _JumairadetailedscreenState extends State<Jumairadetailedscreen> {
                 title = ' Jumeira Catering';
                 subtitle = 'شربه ليبيه';
                 priceString = '9';
-                imageUrl = 'assets/jumairasoup.jpg';
+                imageUrl = 'assets/شربه ليبيه-Jumeira Catering.jpg';
                 break;
 
               case 3:

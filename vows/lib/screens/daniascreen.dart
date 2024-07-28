@@ -22,7 +22,7 @@ class _DaniascreenState extends State<Daniascreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(
+              Navigator.pop(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Drinks(),
@@ -45,7 +45,9 @@ class _DaniascreenState extends State<Daniascreen> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(customerId: '',),
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
                       ),
                     );
                   },
@@ -73,7 +75,7 @@ class _DaniascreenState extends State<Daniascreen> {
                 title = 'Dania';
                 subtitle = 'عصير طبيعي';
                 priceString = '5';
-                imageUrl = 'assets/freshjuice.jpg';
+                imageUrl = 'assets/عصير طبيعي-Dania.jpg';
                 break;
 
               default:
@@ -94,7 +96,10 @@ class _DaniascreenState extends State<Daniascreen> {
                 onAddToCart: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
+                    CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(
+                              customerId: '',
+                            )),
                   );
                 },
                 onCartUpdated: () {

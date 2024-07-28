@@ -1,37 +1,63 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/home.dart';
 import 'package:vows/screens/settings.dart';
 import 'package:vows/screens/vendorsscreen.dart';
 
 class Bottomnavigationbar extends StatefulWidget {
-  final Widget child;
-  const Bottomnavigationbar({required this.child, Key? key}) : super(key: key);
+  final int selectedIndex;
+  final Widget child; 
+
+  const Bottomnavigationbar(
+      {required this.selectedIndex, required this.child, Key? key})
+      : super(key: key);
 
   @override
   State<Bottomnavigationbar> createState() => _BottomnavigationbarState();
 }
 
 class _BottomnavigationbarState extends State<Bottomnavigationbar> {
-  int _selectedIndex = 0;
-  static const List<Widget> _pages = <Widget>[
-    Home(),
-    Vendorsscreen(),
-    Settings(),
-  ];
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
 
   void _onItemTapped(int index) {
+    if (_selectedIndex == index) {
+      return; 
+    }
     setState(() {
       _selectedIndex = index;
     });
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          CupertinoPageRoute(builder: (context) => const Home()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          CupertinoPageRoute(builder: (context) => const Vendorsscreen()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          CupertinoPageRoute(builder: (context) => const Settings()),
+        );
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: widget.child, 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color.fromARGB(255, 101, 143, 193),
         items: const <BottomNavigationBarItem>[

@@ -22,7 +22,7 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(
+              Navigator.pop(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => const Cards(),
@@ -45,7 +45,9 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(customerId: '',),
+                        builder: (context) => const ShoppingCart(
+                          customerId: '',
+                        ),
                       ),
                     );
                   },
@@ -61,7 +63,7 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
           ),
         ),
         body: ListView.builder(
-          itemCount: 5,
+          itemCount: 2,
           itemBuilder: (context, index) {
             String title;
             String subtitle;
@@ -72,33 +74,15 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
             switch (index) {
               case 0:
                 title = 'Alfakama cards';
-                subtitle = 'كرت';
+                subtitle = ' كرت دعوه';
                 priceString = '10';
-                imageUrl = 'assets/كرت دعوة-Alfakama cards.jpg';
+                imageUrl = 'assets/كرت دعوه-alfakhama cards.jpg';
                 break;
               case 1:
                 title = 'Alfakama cards';
-                subtitle = 'كرت';
+                subtitle = 'كرت دعوه حجم صغير';
                 priceString = '4';
-                imageUrl = 'assets/card2.jpg';
-                break;
-              case 2:
-                title = 'Alfakama cards';
-                subtitle = 'كرت';
-                priceString = '6';
-                imageUrl = 'assets/card3.jpg';
-                break;
-              case 3:
-                title = 'Alfakama cards';
-                subtitle = 'كرت';
-                priceString = "15";
-                imageUrl = 'assets/card4.jpg';
-                break;
-              case 4:
-                title = 'Alfakama cards';
-                subtitle = 'كرت';
-                priceString = '6';
-                imageUrl = 'assets/card5.jpg';
+                imageUrl = 'assets/كرت دعوه حجم صغير-alfakhama cards.jpg';
                 break;
               default:
                 title = 'Alfakama cards';
@@ -118,7 +102,10 @@ class _CardsdetailedscreenState extends State<Cardsdetailedscreen> {
                 onAddToCart: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
+                    CupertinoPageRoute(
+                        builder: (context) => const ShoppingCart(
+                              customerId: '',
+                            )),
                   );
                 },
                 onCartUpdated: () {

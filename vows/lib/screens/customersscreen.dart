@@ -133,6 +133,15 @@ class _CustomersscreenState extends State<Customersscreen> {
                 (route) => false);
           },
         ),
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.only(right: 40),
+            child: Text(
+              "الطلبات",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _ordersFuture,
@@ -149,38 +158,64 @@ class _CustomersscreenState extends State<Customersscreen> {
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
-                return ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  leading: Image.asset(order['imageUrl'],
-                      width: 50, height: 50, fit: BoxFit.cover),
-                  title: Text(order['productname'],
-                      style: TextStyle(fontSize: 16)),
-                  subtitle: Text(
-                      'الكمية: ${order['amount']} - الاجمالي: ${order['total_product_price']}',
-                      style: TextStyle(fontSize: 14)),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text('اسم الزبون: ${order['customername']}',
-                          style: TextStyle(fontSize: 12)),
-                      Text('رقم الهاتف: ${order['customerphone']}',
-                          style: TextStyle(fontSize: 12)),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          IconButton(
-                            icon: Icon(Icons.edit, size: 20),
-                            onPressed: () => _showEditDialog(order),
+                          ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(order['imageUrl'],
+                                  width: 100, height: 100, fit: BoxFit.fill),
+                            ),
+                            title: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(order['productname'],
+                                  style: TextStyle(fontSize: 16),
+                                  textAlign: TextAlign.right),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'الكمية: ${order['amount']} - الاجمالي: ${order['total_product_price']}',
+                                  style: TextStyle(fontSize: 14),
+                                  textAlign: TextAlign.right,
+                                ),
+                                Text(
+                                  'اسم الزبون: ${order['customername']}',
+                                  style: TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.right,
+                                ),
+                                Text(
+                                  'رقم الهاتف: ${order['customerphone']}',
+                                  style: TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ],
+                            ),
                           ),
-                          IconButton(
-                            icon: Icon(Icons.delete, size: 20),
-                            onPressed: () => deleteOrder(order['orderid']),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit, size: 20),
+                                onPressed: () => _showEditDialog(order),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete, size: 20),
+                                onPressed: () => deleteOrder(order['orderid']),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 );
               },

@@ -16,7 +16,7 @@ class Aboutus extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Settings(),
@@ -24,29 +24,31 @@ class Aboutus extends StatelessWidget {
             );
           },
         ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: badges.Badge(
-                badgeContent: Text(
-                  cartItems.length.toString(),
-                  style: const TextStyle(color: Colors.black),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.add_shopping_cart),
-                  color: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const ShoppingCart(customerId: '',),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: badges.Badge(
+              badgeContent: Text(
+                cartItems.length.toString(),
+                style: const TextStyle(color: Colors.black),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.add_shopping_cart),
+                color: Colors.black,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => const ShoppingCart(
+                        customerId: '',
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-          ],
+          ),
+        ],
         title: const Center(
           child: Padding(
             padding: EdgeInsets.only(right: 20),

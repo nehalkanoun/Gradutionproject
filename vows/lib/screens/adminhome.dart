@@ -19,7 +19,7 @@ class Adminhome extends StatelessWidget {
         body: Center(
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.only(top: 150, right: 35),
+              padding: const EdgeInsets.only(top: 150, right: 30, left: 30),
               child: ElevatedButton(
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
@@ -37,7 +37,7 @@ class Adminhome extends StatelessWidget {
                   padding:
                       EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
                   child: Text(
-                    " زبون",
+                    " طلبات",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -45,7 +45,7 @@ class Adminhome extends StatelessWidget {
             ),
             const SizedBox(width: 30.0),
             Padding(
-              padding: const EdgeInsets.only(top: 60, right: 35),
+              padding: const EdgeInsets.only(top: 60, right: 30, left: 30),
               child: ElevatedButton(
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(
@@ -64,7 +64,7 @@ class Adminhome extends StatelessWidget {
                   padding:
                       EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 10),
                   child: Text(
-                    "بائع",
+                    "موردين",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
