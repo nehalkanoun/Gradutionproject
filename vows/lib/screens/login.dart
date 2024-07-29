@@ -79,7 +79,11 @@ class _LoginState extends State<Login> {
         Navigator.push(
           // ignore: use_build_context_synchronously
           context,
-          MaterialPageRoute(builder: (context) => const Sellerhome()),
+          MaterialPageRoute(
+              builder: (context) => Sellerhome(
+                    sellerName: usernamecontroller.text,
+                    sellerId: responseData['id'],
+                  )),
         );
       } else {
         print('Login seller failed. Status code: ${response.body}');
@@ -103,9 +107,9 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         print(responseData);
-        // final prefs = await SharedPreferences.getInstance();
+        final prefs = await SharedPreferences.getInstance();
         // await prefs.setString('username', usernamecontroller.text);
-        // await prefs.setString('token', responseData['token']);
+        await prefs.setString('token', responseData['access_token']);
         // await prefs.setInt('id', responseData['id']);
 
         Navigator.push(

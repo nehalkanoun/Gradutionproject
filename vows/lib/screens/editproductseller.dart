@@ -90,54 +90,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _toggleEditing(int index) {
     setState(() {
-      if (_isEditing && _editingIndex == index) {
-        _isEditing = false;
-        _editingIndex = -1;
-        _productNameController.clear();
-        _priceController.clear();
-      } else {
-        _isEditing = true;
-        _editingIndex = index;
+      _isEditing = !_isEditing;
+      _editingIndex = _isEditing ? index : -1;
+
+      if (_isEditing) {
         _productNameController.text = _products[index]['name'];
         _priceController.text = _products[index]['price'].toString();
+      } else {
+        _productNameController.clear();
+        _priceController.clear();
       }
     });
-  }
-
-  void _saveChanges() {
-    if (_editingIndex >= 0 && _editingIndex < _products.length) {
-      final productId = _products[_editingIndex]['id'].toString();
-      _updateProduct(productId);
-    } else {
-      print('Invalid product index: $_editingIndex');
-    }
-  }
-
-  void _showDeleteDialog(String productId, int index) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Delete Product'),
-          content: Text('Are you sure you want to delete this product?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _deleteProduct(productId, index);
-                Navigator.of(context).pop();
-              },
-              child: Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -147,112 +110,91 @@ class _EditProductScreenState extends State<EditProductScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+          title: const Center(
+            child: Text(
+              "تعديل المنتجات",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              final sellerName = prefs.getString('name') ?? 'Unknown';
+              final sellerId = prefs.getInt('id') ?? 0;
+              Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => const Sellerhome(),
+                  builder: (context) => Sellerhome(
+                    sellerName: sellerName,
+                    sellerId: sellerId,
+                  ),
                 ),
               );
             },
           ),
-          title: const Center(
-            child: Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Text(
-                "تعديل منتج",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
         ),
-        body: ListView.builder(
-          itemCount: _products.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => _toggleEditing(index),
-              child: SizedBox(
-                width: 250,
-                height: 240,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
-                  child: Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if (_isEditing && _editingIndex == index)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
-                            child: TextField(
-                              controller: _productNameController,
-                              textAlign: TextAlign.right,
-                            ),
-                          )
-                        else
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, top: 10),
-                            child: Text(_products[index]['name']),
-                          ),
-                        const SizedBox(height: 8.0),
-                        if (_isEditing && _editingIndex == index)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
-                            child: TextField(
-                              controller: _priceController,
-                              textAlign: TextAlign.right,
-                              keyboardType: TextInputType.number,
-                            ),
-                          )
-                        else
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, top: 10),
-                            child: Text(
-                                "${_products[index]['price'].toStringAsFixed(2)}"),
-                          ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        if (_isEditing && _editingIndex == index)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () => _toggleEditing(index),
-                                child: const Text(
-                                  "Cancel",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(width: 8.0),
-                              ElevatedButton(
-                                onPressed: _saveChanges,
-                                child: const Text(
-                                  "Save",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _products.length,
+                  itemBuilder: (context, index) {
+                    final product = _products[index];
+
+                    return Card(
+                      elevation: 5,
+                      child: ListTile(
+                        title: _isEditing && _editingIndex == index
+                            ? Column(
+                                children: [
+                                  TextField(
+                                    controller: _productNameController,
+                                    decoration: const InputDecoration(
+                                        labelText: 'Product Name'),
+                                  ),
+                                  TextField(
+                                    controller: _priceController,
+                                    decoration:
+                                        const InputDecoration(labelText: 'Price'),
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => _updateProduct(
+                                        product['id'].toString()),
+                                    child: const Text('Update Product'),
+                                  ),
+                                ],
+                              )
+                            : Text('Product: ${product['name']}'),
+                        subtitle: _isEditing && _editingIndex == index
+                            ? null
+                            : Text('Price: ${product['price']}'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.delete,
-                                  color: Color.fromARGB(154, 18, 18, 18)),
-                              onPressed: () => _showDeleteDialog(
-                                  _products[index]['id'].toString(), index),
+                              icon: Icon(_isEditing && _editingIndex == index
+                                  ? Icons.cancel
+                                  : Icons.edit),
+                              onPressed: () => _toggleEditing(index),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => _deleteProduct(
+                                  product['id'].toString(), index),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

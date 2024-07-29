@@ -4,6 +4,7 @@ import 'package:vows/helpers/consts.dart';
 import 'package:vows/screens/customersscreen.dart';
 import 'package:vows/screens/login.dart';
 import 'package:vows/screens/sellersscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -37,7 +38,7 @@ class Adminhome extends StatelessWidget {
                   padding:
                       EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
                   child: Text(
-                    " طلبات",
+                    " الطلبات",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -64,7 +65,7 @@ class Adminhome extends StatelessWidget {
                   padding:
                       EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 10),
                   child: Text(
-                    "موردين",
+                    "الموردين",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -75,10 +76,11 @@ class Adminhome extends StatelessWidget {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 ElevatedButton(
                   onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    final token = prefs.getString('token');
                     try {
                       final body = {
-                        "token":
-                            "225|xK4S7h1MNbn12WJ7Mtli6X1inQbzs2gOOjDcLwfBb233d0e8",
+                        "token": '$token',
                       };
 
                       final response = await http.post(

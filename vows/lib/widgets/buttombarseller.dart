@@ -1,57 +1,75 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/ordersscreen.dart';
 import 'package:vows/screens/sellerhome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vows/screens/settings.dart';
 
 class Bottomnavigationbarseller extends StatefulWidget {
   final Widget child;
   final int selectedIndex;
+
   const Bottomnavigationbarseller(
-      {required this.selectedIndex, required this.child, Key? key})
-      : super(key: key);
+      {super.key, required this.child, required this.selectedIndex});
 
   @override
-  State<Bottomnavigationbarseller> createState() =>
+  _BottomnavigationbarsellerState createState() =>
       _BottomnavigationbarsellerState();
 }
 
 class _BottomnavigationbarsellerState extends State<Bottomnavigationbarseller> {
   late int _selectedIndex;
+  late String sellerName;
+  late int sellerId;
+
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.selectedIndex;
+    _loadSellerInfo();
+  }
+
+  Future<void> _loadSellerInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    sellerName = prefs.getString('name') ?? 'Unknown';
+    sellerId = prefs.getInt('id') ?? 0;
   }
 
   void _onItemTapped(int index) {
-    if (_selectedIndex == index) {
-      return;
-    }
     setState(() {
       _selectedIndex = index;
     });
     switch (index) {
       case 0:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          CupertinoPageRoute(builder: (context) => const Sellerhome()),
+          MaterialPageRoute(
+            builder: (context) => Sellerhome(
+              sellerName: sellerName,
+              sellerId: sellerId,
+            ),
+          ),
         );
         break;
       case 1:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          CupertinoPageRoute(
-              builder: (context) => const Ordersscreen(
-                    sellerName: '',
-                  )),
+          MaterialPageRoute(
+            builder: (context) => Ordersscreen(
+              sellerName: sellerName,
+              sellerId: sellerId,
+            ),
+          ),
         );
         break;
       case 2:
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          CupertinoPageRoute(builder: (context) => const Settings()),
+          MaterialPageRoute(
+            builder: (context) => const Settings(),
+          ),
         );
+        break;
+      default:
         break;
     }
   }
@@ -76,7 +94,8 @@ class _BottomnavigationbarsellerState extends State<Bottomnavigationbarseller> {
               AssetImage("assets/orderimagee.png"),
               color: Colors.black,
             ),
-            label: ('الطلبات'),
+            label: (' الطلبات'),
+            backgroundColor: Color.fromARGB(255, 101, 143, 193),
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
@@ -88,9 +107,7 @@ class _BottomnavigationbarsellerState extends State<Bottomnavigationbarseller> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
-        iconSize: 30,
         onTap: _onItemTapped,
-        elevation: 5,
       ),
     );
   }

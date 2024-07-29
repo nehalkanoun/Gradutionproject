@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:vows/screens/home.dart';
 import 'package:vows/screens/splashscreen.dart';
 
 void main() {

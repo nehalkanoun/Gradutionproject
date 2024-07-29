@@ -54,7 +54,10 @@ class _HomecardState extends State<Homecard> {
 
     Navigator.push(
       context,
-      CupertinoPageRoute(builder: (context) => const ShoppingCart(customerId: '',)),
+      CupertinoPageRoute(
+          builder: (context) => const ShoppingCart(
+                customerId: '',
+              )),
     );
   }
 
@@ -62,7 +65,7 @@ class _HomecardState extends State<Homecard> {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 100,
+        maxWidth: 80,
       ),
       decoration: BoxDecoration(
         color: Colors.white,

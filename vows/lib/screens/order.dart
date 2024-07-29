@@ -1,28 +1,28 @@
 class Order {
   final int id;
-  final String customerId;
-  final double totalPrice;
-  final String status;
-  final String createdAt;
-  final String updatedAt;
+  final int amount;
+  final String productName;
+  final double totalProductPrice;
+  final String customerName;
+  final String phoneNumber;
 
   Order({
     required this.id,
-    required this.customerId,
-    required this.totalPrice,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.amount,
+    required this.productName,
+    required this.totalProductPrice,
+    required this.customerName,
+    required this.phoneNumber,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json['id'],
-      customerId: json['customer_ID'],
-      totalPrice: json['total_price'].toDouble(),
-      status: json['status'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      amount: json['amount'],
+      productName: json['productname'],
+      totalProductPrice: json['total_product_price'].toDouble(),
+      customerName: json['customername'],
+      phoneNumber: json['phonenumber'],
     );
   }
 }

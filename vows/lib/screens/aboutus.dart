@@ -16,7 +16,7 @@ class Aboutus extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(
+            Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => const Settings(),

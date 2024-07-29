@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vows/screens/addproductseller.dart';
-
 import 'package:vows/screens/editproductseller.dart';
 import 'package:vows/widgets/buttombarseller.dart';
 
 class Sellerhome extends StatelessWidget {
-  const Sellerhome({super.key});
+  final String sellerName;
+  final int sellerId;
+
+  const Sellerhome(
+      {super.key, required this.sellerName, required this.sellerId});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,11 @@ class Sellerhome extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const Addproduct()),
+                      builder: (context) => Addproduct(
+                        sellerName: sellerName,
+                        sellerId: sellerId,
+                      ),
+                    ),
                     (route) => false,
                   );
                 },

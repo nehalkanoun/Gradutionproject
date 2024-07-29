@@ -31,18 +31,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
   }
 
   Future<void> _confirmOrder() async {
-    double total = _calculateTotal();
+    _calculateTotal();
     final response = await http.post(
-      Uri.parse('$backendURL/api/carts/'),
-      body: jsonEncode({
-        'customer_ID': widget.customerId,
-        'total_price': total,
-        'status': 'Waiting',
-      }),
+      Uri.parse('$backendURL/api/orders/'),
+      body: jsonEncode({'amount': 200, 'product_ID': "2", 'cart_ID': "1"}),
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Order confirmed successfully')),
       );

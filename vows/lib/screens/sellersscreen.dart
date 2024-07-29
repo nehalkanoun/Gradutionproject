@@ -109,6 +109,15 @@ class _SellersscreenState extends State<Sellersscreen> {
             );
           },
         ),
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.only(right: 40),
+            child: Text(
+              "الموردين",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ),
       body: FutureBuilder<List<Vendor>>(
         future: VendorInfo.fetchVendor(),

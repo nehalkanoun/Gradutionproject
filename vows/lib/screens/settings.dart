@@ -275,10 +275,11 @@ class _SettingsState extends State<Settings> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      final token = prefs.getString('token');
                       try {
                         final body = {
-                          "token":
-                              "91|bfEkOzQe51SOCYFqx8pq8hRz9nIe2jnSIMvH9r0vc3fc8ec6",
+                          "token": '$token',
                         };
 
                         final response = await http.post(

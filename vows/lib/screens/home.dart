@@ -45,6 +45,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 101, 143, 193),
+
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
